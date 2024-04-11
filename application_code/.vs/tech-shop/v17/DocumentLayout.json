@@ -1,7 +1,52 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\44796\\OneDrive - University of Buckingham\\Desktop\\EduMasters23-24\\BcAcUK Term 2 Spring\\WTAA\\tech-shop\\Application Code\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.web.services.migrations.startup\\project.tech.shop.services.migrations.startup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj|solutionrelative:src\\services\\project.tech.shop.web.services.migrations.startup\\project.tech.shop.services.migrations.startup.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{821EDFDD-1F84-4597-9263-7876B75EE9EE}|src\\Services\\Project.Tech.Shop.Services.Products\\Project.Tech.Shop.Services.Products.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.services.products\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{821EDFDD-1F84-4597-9263-7876B75EE9EE}|src\\Services\\Project.Tech.Shop.Services.Products\\Project.Tech.Shop.Services.Products.csproj|solutionrelative:src\\services\\project.tech.shop.services.products\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21A8D3E8-1613-477A-AEDD-34AB6B38D16C}|src\\Services\\Project.Tech.Shop.Services.Transactions\\Project.Tech.Shop.Services.Transactions.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.services.transactions\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21A8D3E8-1613-477A-AEDD-34AB6B38D16C}|src\\Services\\Project.Tech.Shop.Services.Transactions\\Project.Tech.Shop.Services.Transactions.csproj|solutionrelative:src\\services\\project.tech.shop.services.transactions\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8672479B-3E60-444D-840E-3E50BE85BC65}|Services{8672479B-3E60-444D-840E-3E50BE85BC65}|C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\services.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8672479B-3E60-444D-840E-3E50BE85BC65}|Services{8672479B-3E60-444D-840E-3E50BE85BC65}|solutionrelative:src\\Services\\services.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9DE8953-C30A-404F-B7BA-FE25F812A51F}|src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Project.Tech.Shop.Services.UsersAccounts.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.services.usersaccounts\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9DE8953-C30A-404F-B7BA-FE25F812A51F}|src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Project.Tech.Shop.Services.UsersAccounts.csproj|solutionrelative:src\\services\\project.tech.shop.services.usersaccounts\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C805DE8-A7B0-4EB5-990C-60447D3663EF}|src\\Services\\Project.Tech.Shop.Services.Common\\Project.Tech.Shop.Services.Common.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.services.common\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6C805DE8-A7B0-4EB5-990C-60447D3663EF}|src\\Services\\Project.Tech.Shop.Services.Common\\Project.Tech.Shop.Services.Common.csproj|solutionrelative:src\\services\\project.tech.shop.services.common\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Web.Services.Migrations.Startup.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.web.services.migrations.startup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Web.Services.Migrations.Startup.csproj|solutionrelative:src\\services\\project.tech.shop.web.services.migrations.startup\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.web.services.migrations.startup\\project.tech.shop.services.migrations.startup.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj|solutionrelative:src\\services\\project.tech.shop.web.services.migrations.startup\\project.tech.shop.services.migrations.startup.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Web.Services.Migrations.Startup.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\services\\project.tech.shop.web.services.migrations.startup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8BEFF9C8-0C86-460A-A1C7-D9B59ACB4F9A}|src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Web.Services.Migrations.Startup.csproj|solutionrelative:src\\services\\project.tech.shop.web.services.migrations.startup\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9528B9A-29D3-481F-8B8A-C333B91EFFA7}|Host Applications{A9528B9A-29D3-481F-8B8A-C333B91EFFA7}|C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Host Applications\\host applications.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A9528B9A-29D3-481F-8B8A-C333B91EFFA7}|Host Applications{A9528B9A-29D3-481F-8B8A-C333B91EFFA7}|solutionrelative:src\\Host Applications\\host applications.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{589958CF-587A-4A99-A8E4-2DB7F5DE9995}|src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj|c:\\users\\44796\\source\\repos\\project-tech-shop\\application_code\\src\\host applications\\project.tech.shop.web\\project.tech.shop.web.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{589958CF-587A-4A99-A8E4-2DB7F5DE9995}|src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj|solutionrelative:src\\host applications\\project.tech.shop.web\\project.tech.shop.web.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +54,152 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Products\\Class1.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Services.Products\\Class1.cs",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Products\\Class1.cs",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Services.Products\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T23:47:16.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Transactions\\Class1.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Services.Transactions\\Class1.cs",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Transactions\\Class1.cs",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Services.Transactions\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T23:46:18.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Class1.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Class1.cs",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Class1.cs",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Services.UsersAccounts\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T23:44:30.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Common\\Class1.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Services.Common\\Class1.cs",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Services.Common\\Class1.cs",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Services.Common\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T23:43:45.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Project.Tech.Shop.Web.Services.Migrations.Startup",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-10T23:32:06.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Project.Tech.Shop.Services.Migrations.Startup.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAB+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-10T23:30:24.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\appsettings.json",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\appsettings.json",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-04-10T23:29:26.719Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Program.cs",
+              "RelativeDocumentMoniker": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Program.cs",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Program.cs",
+              "RelativeToolTip": "src\\Services\\Project.Tech.Shop.Web.Services.Migrations.Startup\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-10T23:28:52.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "host applications.txt",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Host Applications\\host applications.txt",
+              "RelativeDocumentMoniker": "src\\Host Applications\\host applications.txt",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Host Applications\\host applications.txt",
+              "RelativeToolTip": "src\\Host Applications\\host applications.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-04-10T23:17:59.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "services.txt",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\services.txt",
+              "RelativeDocumentMoniker": "src\\Services\\services.txt",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Services\\services.txt",
+              "RelativeToolTip": "src\\Services\\services.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-04-10T23:17:47.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Project.Tech.Shop.Web",
+              "DocumentMoniker": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj",
+              "RelativeDocumentMoniker": "src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj",
+              "ToolTip": "C:\\Users\\44796\\source\\repos\\Project-Tech-Shop\\application_code\\src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj",
+              "RelativeToolTip": "src\\Host Applications\\Project.Tech.Shop.Web\\Project.Tech.Shop.Web.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-10T23:11:06.575Z",
+              "EditorCaption": ""
             }
           ]
         }
