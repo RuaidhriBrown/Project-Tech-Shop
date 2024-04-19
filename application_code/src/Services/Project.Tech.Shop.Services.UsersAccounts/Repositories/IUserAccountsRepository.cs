@@ -23,6 +23,22 @@ public interface IUserAccountsRepository
     Task<Result<User>> GetByIdAsync(Guid userId, CancellationToken cancellationToken);
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Result<User>> GetByUsernameAsync(string username, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<Result<string>> GetPasswordHashByUsernameAsync(string username, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Retrieves all users in the repository.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the operation.</param>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Project.Tech.Shop.Services.UsersAccounts;
 using Project.Tech.Shop.Services.Common;
 using Project.Tech.Shop.Services.UsersAccounts.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace block.chain.services.Transactions.Repositories;
 
@@ -12,6 +13,13 @@ namespace block.chain.services.Transactions.Repositories;
 public class UserAccountsRepository : IUserAccountsRepository
 {
     private readonly UserAccountsContext _context;
+    private readonly ILogger<UserAccountsRepository> _logger;
+
+    public UserAccountsRepository(UserAccountsContext context, ILogger<UserAccountsRepository> logger)
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
     ///<inheritdoc />
     public IUnitOfWork UnitOfWork => _context;
@@ -30,6 +38,43 @@ public class UserAccountsRepository : IUserAccountsRepository
             .SingleOrDefaultAsync(u => u.UserId == userId, cancellationToken);
 
         return user != null ? Result.Success(user) : Result.Failure<User>("User not found.");
+    }
+
+
+    ///<inheritdoc />
+    public async Task<Result<User>> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        var user = await _context.Users
+            .Include(u => u.Roles)
+            .Include(u => u.Addresses)
+            .Include(u => u.SecuritySettings)
+            .Include(u => u.Preferences)
+            .Include(u => u.Activities)
+            .SingleOrDefaultAsync(u => u.Username == username, cancellationToken);
+
+        return user != null ? Result.Success(user) : Result.Failure<User>("User not found.");
+    }
+
+    ///<inheritdoc />
+    public async Task<Result<string>> GetPasswordHashByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        // Ensuring the username is not null or empty
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            return Result.Failure<string>("Username cannot be empty.");
+        }
+
+        var user = await _context.Users
+            .SingleOrDefaultAsync(u => u.Username == username, cancellationToken);
+
+        if (user == null)
+        {
+            // Optionally log the fact that no user was found
+            _logger?.LogWarning("No user found with username: {Username}", username);
+            return Result.Failure<string>("User not found.");
+        }
+
+        return Result.Success(user.PasswordHash);
     }
 
     ///<inheritdoc />

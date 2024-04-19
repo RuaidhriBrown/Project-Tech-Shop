@@ -42,7 +42,7 @@ namespace Project.Tech.Shop.Services.UsersAccounts
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Server=localhost;Database=dev-tech-shop;Port=5432;User Id=postgres;Password=X1B2#WXYZ123a;",
+                optionsBuilder.UseNpgsql("Server=localhost;Database=dev-tech-shop;Port=5432;User Id=dts-postgres;Password=X1B2#WXYZ123a;",
                     x => x.MigrationsHistoryTable("__EFMigrationsHistory", SchemaName));
             }
         }

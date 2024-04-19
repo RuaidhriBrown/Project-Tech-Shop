@@ -25,7 +25,7 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
         public string Email { get; set; }
 
         [Required]
-        public byte[] PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Role> Roles { get; set; } = new List<Role>();

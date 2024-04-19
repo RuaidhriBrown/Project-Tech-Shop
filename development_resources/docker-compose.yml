@@ -27,7 +27,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-    
+  
   # Grafana: Interactive visualization and analytics platform. Accessible at http://localhost:3000/ Login using the username: admin Passowrd: admin / password
   grafana:
     image: grafana/grafana:8.0.6
@@ -38,7 +38,18 @@ services:
     depends_on:
       - prometheus
 
-  # Add app images here
+  # project_tech_shop_web: find this on 8080
+  project_tech_shop_web:
+    build:
+      context: ../application_code/src/Host Applications/Project.Tech.Shop.Web
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Change the left value if port 8080 is already in use
+    depends_on:
+      - seq
+      - zipkin
+      - prometheus
+      - grafana
 
 volumes:
   prometheus_data:
