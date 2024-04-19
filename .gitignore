@@ -52,6 +52,8 @@ obj/
 PublishProfiles/
 .vs/
 .user
+v17/.suo
+v17/DocumentLayout.json
 
 # Magic Draw
 analysis-and-design/*.bak
