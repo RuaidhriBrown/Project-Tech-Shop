@@ -38,19 +38,46 @@ services:
     depends_on:
       - prometheus
 
+  # PostgreSQL: Database service
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=techshopdb
+      - POSTGRES_USER=techshopuser
+      - POSTGRES_PASSWORD=techshoppassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   # project_tech_shop_web: find this on 8080
   project_tech_shop_web:
     build:
-      context: ../application_code/src/Host Applications/Project.Tech.Shop.Web
-      dockerfile: Dockerfile
+      context: ../application_code/src/
+      dockerfile: Host Applications/Project.Tech.Shop.Web/Dockerfile
     ports:
-      - "8080:80" # Change the left value if port 8080 is already in use
+      - "5045:8080" # Change the left value if port 8080 is already in use
     depends_on:
       - seq
       - zipkin
       - prometheus
       - grafana
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080
+      - ConnectionStrings__DefaultConnection="Host=postgres;Port=5432;Database=techshopdb;Username=techshopuser;Password=techshoppassword;"
+      - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://zipkin:9411/api/v2/spans
+      - SeqEndpoint=http://seq:80
+      - Serilog__WriteTo__2__Name=Seq
+      - Serilog__WriteTo__2__Args__ServerUrl=http://seq:80
+      - Serilog__WriteTo__2__Args__RestrictedToMinimumLevel=Debug
+    volumes:
+      - data_protection_keys:/root/.aspnet/DataProtection-Keys
+
 
 volumes:
+  data_protection_keys:
   prometheus_data:
   grafana-storage:
+  postgres_data:

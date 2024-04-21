@@ -63,3 +63,4 @@ analysis-and-design/*.bak
 outDir/
 node_modules/
 
+/application_code/src/Host Applications/Project.Tech.Shop.Web/logs/*.txt

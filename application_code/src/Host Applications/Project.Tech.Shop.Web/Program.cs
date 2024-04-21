@@ -1,54 +1,49 @@
-using block.chain.webhost.Infastructure;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-// Configure DbContext options
-Action<DbContextOptionsBuilder> dbContextOptions = options =>
+public class Program
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-};
-
-// Add domain services with proper configuration
-builder.Services.AddDomainServices(dbContextOptions, builder.Configuration, builder.Environment);
-
-// Add cookie authentication
-builder.Services.AddAuthentication("CookieAuth")
-    .AddCookie("CookieAuth", config =>
+    public static void Main(string[] args)
     {
-        config.Cookie.Name = "UserLoginCookie"; // Set the cookie name
-        config.LoginPath = "/Account/Login";    // Set the login path
-    });
+        // Configure Serilog first
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .CreateBootstrapLogger(); // Ensures that the logger is configured here and used throughout
 
-var app = builder.Build();
+        try
+        {
+            var host = CreateHostBuilder(args).Build();
+            host.Run();
+        }
+        finally
+        {
+            // Ensure to flush and stop the logger correctly
+            Log.CloseAndFlush();
+        }
+    }
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .UseSerilog((context, services, configuration) => configuration
+                .ReadFrom.Configuration(context.Configuration)
+                .Enrich.FromLogContext())
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+                //webBuilder.UseUrls("http://*:80");
+            });
+
+    private static Microsoft.Extensions.Configuration.IConfiguration GetConfiguration()
+    {
+        return new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+            .AddEnvironmentVariables()
+            .Build();
+    }
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-    //app.UseExceptionHandler("/Home/Error");
-}
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
-app.Run();

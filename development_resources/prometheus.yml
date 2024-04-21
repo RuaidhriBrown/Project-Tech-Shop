@@ -3,13 +3,8 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'crytpo-analysis-ui'
+  - job_name: 'project_tech_shop'
     metrics_path: '/metrics'  # Define the metrics path globally for all targets
     static_configs:
-      - targets: ['crytpo-analysis-ui:8080']  # Here, only specify the hostnames
-
-  - job_name: 'crytpo-analysis-backend'
-    metrics_path: '/metrics'  # Define the metrics path globally for all targets
-    static_configs:
-      - targets: ['crytpo-analysis-backend:8080']  # Here, only specify the hostnames
+      - targets: ['project_tech_shop_web:8080']  # Here, only specify the hostnames
 
