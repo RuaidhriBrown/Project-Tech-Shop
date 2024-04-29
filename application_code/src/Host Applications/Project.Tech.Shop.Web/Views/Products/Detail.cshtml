@@ -1,0 +1,110 @@
+﻿@model Project.Tech.Shop.Web.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h1>@Model.Name</h1>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Image Carousel for multiple images -->
+        <div class="col-lg-6">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <!-- Dynamically generate indicators if more images -->
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="data:image/jpeg;base64,@Model.Image" alt="@Model.Name">
+                    </div>
+                    <!-- Add more items here if there are more images -->
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-lg-6">
+            <!-- Processor and Graphics Card Details -->
+            <div class="card mb-3">
+                <div class="card-header">Processor & Graphics</div>
+                <div class="card-body">
+                    <p><strong>Processor:</strong> @Model.ProcessorType</p>
+                    <p><strong>Graphics:</strong> @Model.GraphicsCard</p>
+                </div>
+            </div>
+
+            <!-- RAM and Storage Details -->
+            <div class="card mb-3">
+                <div class="card-header">Memory & Storage</div>
+                <div class="card-body">
+                    <p><strong>RAM:</strong> @Model.RAM GB</p>
+                    <p><strong>Storage:</strong> @Model.Storage GB (@Model.StorageType)</p>
+                </div>
+            </div>
+
+            <!-- Display Details -->
+            <div class="card mb-3">
+                <div class="card-header">Display & Peripherals</div>
+                <div class="card-body">
+                    <p><strong>Screen:</strong> @Model.ScreenSize" inches</p>
+                    <p><strong>Touchscreen:</strong> @(Model.TouchScreen.HasValue && Model.TouchScreen.Value ? "Yes" : "No")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description across the width of the page -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-header">Description</div>
+                <div class="card-body">
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Basket Button at the bottom -->
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <button type="button" class="btn btn-success" onclick="addToBasket(@Model.ProductId)">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+            <a href="@Url.Action("Index", "Products")" class="btn btn-info">Back to Products</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function addToBasket(productId) {
+            $.ajax({
+                url: '@Url.Action("AddToBasket", "Basket")',
+                type: 'POST',
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        // Optionally update basket UI here
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+        }
+    </script>
+}

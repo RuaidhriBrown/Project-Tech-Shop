@@ -30,11 +30,16 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Log in" class="btn btn-default" />
+                <!-- Link to the Register page -->
+                <p>
+                    Don't have an account? <a href="@Url.Action("Register", "Account")">Register here</a>.
+                </p>
             </div>
         </div>
     </div>
 }
 
+@* Additional scripts for client-side validation, uncomment if needed *@
 @* @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 } *@

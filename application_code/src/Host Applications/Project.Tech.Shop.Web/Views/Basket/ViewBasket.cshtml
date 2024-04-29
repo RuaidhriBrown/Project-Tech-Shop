@@ -1,0 +1,56 @@
+﻿@model BasketViewModel
+
+<h2>Your Basket</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Price.ToString("C")</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalPrice.ToString("C")</td>
+                <td>
+                    <button class="btn btn-danger" onclick="removeFromBasket(@item.ProductId, @item.BasketItemId)">Remove</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p><strong>Total:</strong> @Model.TotalPrice.ToString("C")</p>
+
+<a class="btn btn-primary" href="@Url.Action("Checkout", "Basket")">Checkout</a>
+
+@section Scripts {
+    <script>
+        function removeFromBasket(productId, basketItemId) {
+            $.ajax({
+                url: '@Url.Action("RemoveItem", "Basket")',
+                type: 'POST',
+                data: { productId: productId, basketItemId: basketItemId },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Item removed successfully');
+                        location.reload(); // Reload the page to update the basket display
+                    } else {
+                        alert('Failed to remove item: ' + response.message);
+                    }
+                },
+                error: function (error) {
+                    alert('Error removing item: ' + error.message);
+                }
+            });
+        }
+    </script>
+}

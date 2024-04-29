@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Services\Project.Tech.Shop.Services.Common\Project.Tech.Shop.Services.Common.csproj" />
+    <ProjectReference Include="..\..\src\Services\Project.Tech.Shop.Services.Products\Project.Tech.Shop.Services.Products.csproj" />
+    <ProjectReference Include="..\..\src\Services\Project.Tech.Shop.Services.UsersAccounts\Project.Tech.Shop.Services.UsersAccounts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.18.0" />
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.18" />
+    <PackageReference Include="Moq" Version="4.18.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Testing\" />
+  </ItemGroup>
+
+</Project>

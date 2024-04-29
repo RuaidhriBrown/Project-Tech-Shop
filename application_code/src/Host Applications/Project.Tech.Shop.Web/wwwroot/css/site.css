@@ -1,18 +1,452 @@
+/* Base HTML styling */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
+/* Larger font size for wider screens */
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Body styling to accommodate footer */
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+/* Navbar customization */
+.navbar {
+    background-color: #007bff; /* Vivid blue */
+    color: #ffffff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #ffffff; /* Ensures text on the navbar is white for contrast */
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #d6e4ff; /* Lighter blue for hover effects */
+}
+
+.navbar-light .navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-light .navbar-brand:hover {
+    color: #d6e4ff;
+}
+
+/* Footer styling might also reflect the navbar for consistency */
+.footer {
+    background-color: #0056b3; /* Darker blue */
+    color: #ffffff;
+}
+
+.footer a {
+    color: #cce5ff;
+}
+
+.footer a:hover {
+    color: #ffffff;
+}
+
+/* Button customizations could reflect a consistent color scheme */
+button, .btn {
+    background-color: #0066cc; /* Consistent blue */
+    color: #ffffff;
+}
+
+button:hover, .btn:hover {
+    background-color: #004c99;
+}
+
+/* Ensure the navbar collapses properly */
+.navbar-collapse {
+    display: flex;
+    justify-content: space-between; /* This will push the authentication links to the right */
+}
+
+/* Styling links for visibility */
+.nav-link {
+    color: #ffffff; /* Change as per your color theme */
+}
+
+.nav-link:hover {
+    color: #cce5ff; /* Lighter color on hover */
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212; /* Dark gray background for body */
+        color: #e0e0e0; /* Light gray text color for readability */
+    }
+
+    .navbar {
+        background-color: #0A0F24; /* Dark blue shade for navbar */
+        color: #ffffff;
+    }
+
+    .navbar-light .navbar-nav .nav-link,
+    .navbar-light .navbar-brand {
+        color: #ffffff; /* White text for better readability in dark mode */
+    }
+
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-brand:hover {
+            color: #637B99; /* Lighter blue for hover effects, adjust as necessary */
+        }
+
+    .footer {
+        background-color: #0A0F24; /* Dark blue shade for footer to match the navbar */
+        color: #ffffff;
+    }
+
+        .footer a {
+            color: #637B99; /* Consistent lighter blue for links */
+        }
+
+            .footer a:hover {
+                color: #ffffff; /* White for hovered links */
+            }
+
+    button, .btn {
+        background-color: #1B3B6F; /* Deeper blue for buttons */
+        color: #ffffff;
+    }
+
+        button:hover, .btn:hover {
+            background-color: #2A5298; /* Lighter blue for button hover effects */
+        }
+
+    /* Additional dark mode specific styles can be added below */
+}
+
+
+/* Dropdown menu styling for light mode */
+.dropdown-menu {
+    background-color: #007bff; /* Matching the navbar vivid blue */
+    border: none; /* Removes default borders */
+}
+
+.dropdown-item {
+    color: #ffffff; /* White text for visibility */
+}
+
+    .dropdown-item:hover, .dropdown-item:focus {
+        background-color: #0056b3; /* A slightly darker blue on hover */
+        color: #ffffff;
+    }
+
+/* Dark mode styles for dropdown */
+@media (prefers-color-scheme: dark) {
+    .dropdown-menu {
+        background-color: #0A0F24; /* Dark blue for dark mode dropdowns */
+    }
+
+    .dropdown-item {
+        color: #ffffff; /* White text for readability in dark mode */
+    }
+
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #1B3B6F; /* Deeper blue for hover effects */
+            color: #ffffff;
+        }
+}
+
+.dropdown-menu {
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adding subtle shadows for depth */
+    border-radius: 0.25rem; /* Rounded corners for modern look */
+}
+
+.dropdown-item {
+    padding: 10px 20px; /* Adequate padding for better touch interaction */
+}
+
+/* General styles for form elements */
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+/* Responsive grid adjustments */
+@media (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 auto;
+        width: 33.333333%;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type="text"], input[type="number"], select, button[type="submit"] {
+        border: 1px solid #333;
+        background-color: #333;
+        color: #fff;
+    }
+}
+
+.products-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 992px) { /* Adjust based on your responsive design breakpoints */
+    .products-page-container {
+        flex-direction: row;
+    }
+
+    .product-filters {
+        flex: 1;
+        max-width: 250px; /* Adjust width of filters sidebar */
+    }
+
+    .product-listing {
+        flex: 3;
+    }
+}
+
+/* Cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px; /* 5px rounded corners */
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .card img {
+        border-radius: 5px 5px 0 0;
+    }
+
+.card-body {
+    padding: 2px 16px;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Aligns items vertically center in case of varying heights */
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-left {
+    flex: 0 0 200px; /* Flex-basis of 200px, change as needed */
+    height: 170px; /* Adjust based on your design */
+    background-color: #f8f9fa; /* Fallback color */
+}
+
+.card-img-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area, adjust as needed */
+}
+
+.card-body {
+    flex: 1; /* Takes the remaining space */
+    padding: 15px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #333;
+        color: #e0e0e0;
+    }
+
+    .card-img-left {
+        background-color: #2a2a2a;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1); /* More noticeable shadow on hover */
+        background-color: #3c3c3c; /* Slightly lighter background on hover to make the card "pop" */
+    }
+}
+
+
+.alert-info {
+    background-color: #f0f4f8;
+    color: #31708f;
+}
+
+.alert-heading {
+    font-size: 1.5em;
+}
+
+.card-img-left img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensure images cover the area well without stretching */
+}
+
+@media (prefers-color-scheme: dark) {
+    body, .navbar, .footer {
+        background-color: #121212; /* Dark background for main elements */
+        color: #e0e0e0; /* Light text for readability */
+    }
+
+        .navbar-light .navbar-nav .nav-link,
+        .navbar-light .navbar-brand,
+        .footer a {
+            color: #e0e0e0; /* Ensuring all text is visible */
+        }
+
+            .navbar-light .navbar-nav .nav-link:hover,
+            .navbar-light .navbar-brand:hover,
+            .footer a:hover {
+                color: #ffffff; /* Brighter color on hover for better visibility */
+            }
+
+    .card {
+        background-color: #222; /* Darker background for cards */
+        color: #ddd; /* Lighter text for contrast */
+    }
+
+    .card-img-left img {
+        object-fit: cover; /* Ensuring images fit well */
+    }
+
+    .alert-info {
+        background-color: #2a2e35; /* Darker background for alerts */
+        color: #b0bec5; /* Smoother text color that's easy on the eyes */
+        border-color: #37474f; /* Subtle borders for differentiation */
+    }
+
+    .alert-link {
+        color: #80cbc4; /* More visible links within alerts */
+    }
+}
+
+/* General Dark Mode Styling */
+@media (prefers-color-scheme: dark) {
+    body, .navbar, .footer, .alert, .table {
+        background-color: #121212; /* Dark background for main elements */
+        color: #e0e0e0; /* Light text for readability */
+    }
+
+    .navbar, .footer {
+        border-color: #333; /* Dark borders for subtle separation */
+    }
+
+    .btn {
+        border: 1px solid #555; /* More visible button borders */
+    }
+
+    .btn-primary {
+        background-color: #0062cc;
+        border-color: #005cbf;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004495;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border-bottom: 1px solid #444; /* Visible separators in tables */
+        padding: 8px; /* Adequate padding */
+        text-align: left;
+    }
+
+    th {
+        background-color: #222; /* Darker header background */
+    }
+
+    /* Enhance dropdown menus in dark mode */
+    .dropdown-menu {
+        background-color: #333;
+        color: #ddd;
+    }
+
+    .dropdown-item {
+        color: #ccc;
+    }
+
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+    /* Input and select box styling in dark mode */
+    input[type="text"], input[type="number"], select, button[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #666;
+    }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border-color: #555;
+            box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.25);
+        }
+}
+
+/* Ensure links are visible */
+a, .alert-link {
+    color: #4c9aff;
+}
+
+    a:hover {
+        color: #d1eaff;
+    }
+
+/* Fix visibility of form controls */
+button, input[type="submit"] {
+    color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (min-width: 992px) {
+    .products-page-container {
+        flex-direction: row;
+    }
+
+    .product-filters {
+        flex: 1;
+        max-width: 250px; /* Adjust width of filters sidebar */
+    }
+
+    .product-listing {
+        flex: 3;
+    }
 }

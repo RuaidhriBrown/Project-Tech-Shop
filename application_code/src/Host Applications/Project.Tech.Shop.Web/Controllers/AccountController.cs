@@ -1,29 +1,30 @@
-﻿using block.chain.services.Transactions.Repositories;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Project.Tech.Shop.Services.UsersAccounts.Entities;
 using Project.Tech.Shop.Web.Models;
 using System.Security.Claims;
-using BCrypt.Net;
-using System.Text;
+using Project.Tech.Shop.Web.services;
 
 namespace Project.Tech.Shop.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserAccountsRepository _userAccountsRepository;
+        private readonly AccountUseCase _accountUseCase;
+        private readonly GetUserProfileUseCase _getUserProfileUseCase;
+        private readonly ILogger<AccountController> _logger;
 
         public AccountController(
-            IUserAccountsRepository userAccounts)
+            ILogger<AccountController> logger,
+            AccountUseCase loginUseCase,
+            GetUserProfileUseCase getUserProfileUseCase)
         {
-            _userAccountsRepository = userAccounts;
+            _logger = logger;
+            _accountUseCase = loginUseCase;
+            _getUserProfileUseCase = getUserProfileUseCase;
         }
 
         // GET: Account/Login
         public ActionResult Login()
         {
-            
             string password = "testingPassword"; // Choose a strong password
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
             Console.WriteLine($"Hashed Password: {hashedPassword}");
@@ -39,9 +40,9 @@ namespace Project.Tech.Shop.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Here, add your logic to verify the user credentials
-                bool isAuthenticated = await AuthenticateUserAsync(model.Username, model.Password, cancellationToken);
+                var isAuthenticated = await _accountUseCase.AuthenticateUserAsync(model.Username, model.Password, cancellationToken);
 
-                if (isAuthenticated)
+                if (isAuthenticated.IsSuccess)
                 {
                     var claims = new List<Claim>
                     {
@@ -84,7 +85,7 @@ namespace Project.Tech.Shop.Web.Controllers
 
             var username = User.Identity.Name;
             // Assuming a method to get user details by username
-            var userDetailsResults = await _userAccountsRepository.GetByUsernameAsync(username, cancellationToken);
+            var userDetailsResults = await _getUserProfileUseCase.GetUserProfileByUsernameAsync(username, cancellationToken);
 
             if (userDetailsResults.IsFailure)
             {
@@ -92,42 +93,44 @@ namespace Project.Tech.Shop.Web.Controllers
                 return View("Error");
             }
 
-            var userDetails = userDetailsResults.Value;
+            return View(userDetailsResults.Value);
+        }
 
-            var viewModel = new UserProfileViewModel
+
+        // GET: Account/Register
+        public ActionResult Register()
+        {
+            return View(new RegistrationViewModel());
+        }
+
+        // POST: Account/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegistrationViewModel model, CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
             {
-                Username = userDetails.Username,
-                Email = userDetails.Email,
-                // Map other required fields
-            };
+                return View(model);
+            }
 
-            return View(viewModel);
-        }
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("", "Password and Confirm Password do not match.");
+                return View(model);
+            }
 
-        private async Task<bool> AuthenticateUserAsync(string username, string password, CancellationToken cancellationToken)
-        {
-            var passwordHashResult = await _userAccountsRepository.GetPasswordHashByUsernameAsync(username, cancellationToken);
-            
-            if (passwordHashResult.IsFailure) return false;
+            // Assuming RegisterUserAsync is a method in LoginUseCase that handles user registration
+            var result = await _accountUseCase.RegisterUserAsync(model, cancellationToken);
 
-            var verificationResult = BCrypt.Net.BCrypt.Verify(password, passwordHashResult.Value);
-            return verificationResult;
-        }
-    }
-
-    // not used \/
-    public class UserManager
-    {
-        private PasswordHasher<User> _passwordHasher;
-
-        public UserManager()
-        {
-            _passwordHasher = new PasswordHasher<User>();
-        }
-
-        public PasswordVerificationResult VerifyPassword(string hashedPassword, string providedPassword)
-        {
-            return _passwordHasher.VerifyHashedPassword(null, hashedPassword, providedPassword);
+            if (result.IsSuccess)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", result.Error);
+                return View(model);
+            }
         }
     }
 }

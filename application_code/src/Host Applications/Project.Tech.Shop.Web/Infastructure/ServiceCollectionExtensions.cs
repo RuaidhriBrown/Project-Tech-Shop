@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project.Tech.Shop.Services.UsersAccounts;
 using Ardalis.GuardClauses;
+using Project.Tech.Shop.Web.services;
+using Project.Tech.Shop.Services.Products;
 
 namespace block.chain.webhost.Infastructure
 {
@@ -21,6 +23,7 @@ namespace block.chain.webhost.Infastructure
             IWebHostEnvironment environment)
         {
             services.AddUserAccountsServices(dbContextOptions);
+            services.AddProductServices(dbContextOptions);
             services.AddOtherServices(configuration, dbContextOptions);
             return services;
         }
@@ -41,8 +44,8 @@ namespace block.chain.webhost.Infastructure
             Guard.Against.Null(options, "");
 
             // UseCases
-            //services.AddScoped<>();
-            //services.AddScoped<>();
+            services.AddScoped<GetUserProfileUseCase>();
+            services.AddScoped<AccountUseCase>();
 
             return services;
         }

@@ -16,6 +16,7 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
 
         [Required]
         public Guid UserId { get; set; }
+
         public virtual User User { get; set; }
 
         [Required]
@@ -28,11 +29,11 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
 
         [Required]
         [MaxLength(256)]
-        public string State { get; set; }
+        public string County { get; set; }
 
         [Required]
         [MaxLength(10)]
-        public string ZipCode { get; set; }
+        public string PostCode { get; set; }
 
         [Required]
         [MaxLength(256)]

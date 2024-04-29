@@ -1,0 +1,145 @@
+﻿@using Project.Tech.Shop.Services.Products.Enitites
+@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+    var filters = ViewBag.Filters as FilterProductViewModel;
+
+    var categorySelectListItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "All", Value = "" }
+    };
+    categorySelectListItems.AddRange(Enum.GetNames(typeof(Category)).Select(e => new SelectListItem { Text = e, Value = e }));
+
+    string selectedCategory = filters?.Category?.ToString() ?? "All";
+}
+
+<h2>Products</h2>
+
+<button type="button" onclick="toggleFilters()" class="toggle-button">Show/Hide Filters</button>
+
+<div class="products-page-container">
+    <div id="filterContainer" class="product-filters">
+        @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+        {
+            <div>
+                <!-- Brand Filter -->
+                <div>
+                    <label for="brand">Brand:</label>
+                    <input type="text" id="brand" name="Brand" value="@ViewBag.Brand" />
+                </div>
+
+                <!-- Category Filter -->
+                <div>
+                    <label for="category">Category:</label>
+                    @Html.DropDownList("Category", new SelectList(categorySelectListItems, "Value", "Text", selectedCategory), new { @class = "form-control" })
+                </div>
+
+                <!-- Price Filters -->
+                <div>
+                    <label for="minPrice">Min Price:</label>
+                    <input type="number" id="minPrice" name="MinPrice" value="@filters?.MinPrice" />
+                </div>
+                <div>
+                    <label for="maxPrice">Max Price:</label>
+                    <input type="number" id="maxPrice" name="MaxPrice" value="@filters?.MaxPrice" />
+                </div>
+
+                <!-- Storage Filters -->
+                <div>
+                    <label for="minStorage">Min Storage:</label>
+                    <input type="number" id="minStorage" name="MinStorage" value="@filters?.MinStorage" />
+                </div>
+                <div>
+                    <label for="maxStorage">Max Storage:</label>
+                    <input type="number" id="maxStorage" name="MaxStorage" value="@filters?.MaxStorage" />
+                </div>
+
+                <button type="submit">Filter</button>
+            </div>
+        }
+    </div>
+
+    <div class="product-listing">
+        <div class="row">
+            @if (Model.Count > 0)
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="col-12 mb-4">
+                        <!-- Each card takes full width of the row -->
+                        <div class="card d-flex flex-row">
+                            <!-- Flex row to place image and text side by side -->
+                            <div class="card-img-left">
+                                <!-- Link on the image to see the product details -->
+                                <a href="@Url.Action("Detail", "Products", new { id = product.ProductId })">
+                                    <img src="data:image/jpeg;base64,@product.Image" alt="@product.Name" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <!-- Additional details instead of description -->
+                                    <p class="card-text"><strong>Processor:</strong> @product.ProcessorType</p>
+                                    <p class="card-text"><strong>RAM:</strong> @product.RAM GB</p>
+                                    <p class="card-text"><strong>Storage:</strong> @product.Storage GB</p>
+                                    <p class="card-text"><strong>Price:</strong> @product.Price.ToString("C")</p>
+                                    <p class="card-text"><strong>Category:</strong> @product.Category.ToString()</p>
+                                </div>
+                                <div class="mt-auto">
+                                    <!-- Add to Basket and See Product buttons -->
+                                    <button type="button" class="btn btn-primary" onclick="addToBasket(@product.ProductId)">Add to Basket</button>
+                                    <a class="btn btn-secondary" href="@Url.Action("Detail", "Products", new { id = product.ProductId })">See Product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center py-5">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-exclamation-circle"></i> No Stock Available</h4>
+                        <p>We're currently out of stock on these products. Please check back later or browse our other products.</p>
+                        <hr>
+                        <p class="mb-0">Need help finding a product? <a href="@Url.Action("Index", "Products")" class="alert-link">Browse our catalog</a> or <a href="@Url.Action("Contact", "Home")" class="alert-link">contact us</a> for assistance.</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function toggleFilters() {
+            var x = document.getElementById("filterContainer");
+            if (x.style.display === "none") {
+                x.style.display = "block"; // Show
+            } else {
+                x.style.display = "none"; // Hide
+            }
+        }
+        function addToBasket(productId) {
+            $.ajax({
+                url: '@Url.Action("AddToBasket", "Basket")',
+                type: 'POST',
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        // Optionally update basket UI here
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+        }
+    </script>
+}

@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Project.Tech.Shop.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Project.Tech.Shop.Web</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,20 +21,56 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Products
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index">All</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="Laptop">Laptop</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="Desktop">Desktop</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="Mobile">Mobiles</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index" asp-route-category="Accessories">Accessories</a>
+                                </div>
+                            </li>
                         </li>
-                        <!-- User Login Info -->
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="Privacy">Deals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Support</a>
+                        </li>
+                        <li class="nav-item">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Crazy
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-area="" asp-controller="Crazy" asp-action="SimpleGame">SimpleGame</a>
+                                </div>
+                            </li>
+                        </li>
+                    </ul>
+                    <!-- Authentication Links -->
+                    <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Basket" asp-action="ViewBasket">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <span class="basket-count badge badge-pill badge-warning">0</span>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Hello, @User.Identity.Name!
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name!
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="basket" asp-action="viewBasket">Basket</a>
                                     <form asp-controller="Account" asp-action="Logout" method="post">
                                         <button type="submit" class="dropdown-item">Logout</button>
                                     </form>
@@ -43,7 +80,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
@@ -68,3 +105,18 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        function fetchBasketCount() {
+            $.get('@Url.Action("GetBasketItemCount", "Basket")', function (data) {
+                $('.basket-count').text(data.count);
+            }).fail(function () {
+                console.log('Error fetching basket count.');
+            });
+        }
+
+        fetchBasketCount();
+        setInterval(fetchBasketCount, 30000); // Refresh the basket count every 30 seconds
+    });
+</script>

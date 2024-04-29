@@ -1,10 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
-using Project.Tech.Shop.Services.UsersAccounts;
 using Project.Tech.Shop.Services.Common;
 using Project.Tech.Shop.Services.UsersAccounts.Entities;
 
-namespace block.chain.services.Transactions.Repositories;
+namespace Project.Tech.Shop.Services.UsersAccounts.Repositories;
 
 public interface IUserAccountsRepository
 {
@@ -46,6 +45,14 @@ public interface IUserAccountsRepository
     Task<Result<IReadOnlyCollection<User>>> GetAllAsync(CancellationToken cancellationToken);
 
     /// <summary>
+    /// Retrieves all users in the repository matching Role.
+    /// </summary>
+    /// <param name="role">The role to select all users by</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>A read-only collection of users.</returns>
+    Task<Result<IReadOnlyCollection<User>>> GetAllUsersByRoleAsync(Role role, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Adds a new user to the repository.
     /// </summary>
     /// <param name="user">The user entity to add.</param>
@@ -79,26 +86,6 @@ public interface IUserAccountsRepository
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A result indicating success or failure, including an error if applicable.</returns>
     Task<UnitResult<UserDbErrorReason>> AddAddressToUserAsync(Address address, Guid userId, CancellationToken cancellationToken);
-
-
-    // Role-related methods
-    /// <summary>
-    /// Assigns a role to a user.
-    /// </summary>
-    /// <param name="userId">The unique identifier of the user.</param>
-    /// <param name="roleId">The unique identifier of the role to assign.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A result indicating success or failure, including an error if applicable.</returns>
-    Task<UnitResult<UserDbErrorReason>> AssignRoleToUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken);
-    /// <summary>
-    /// Removes a role from a user.
-    /// </summary>
-    /// <param name="userId">The unique identifier of the user.</param>
-    /// <param name="roleId">The unique identifier of the role to remove.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>A result indicating success or failure, including an error if applicable.</returns>
-    Task<UnitResult<UserDbErrorReason>> RemoveRoleFromUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken);
-
 
     // Security settings-related methods
     /// <summary>

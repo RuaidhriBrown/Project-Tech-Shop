@@ -18,7 +18,6 @@ namespace Project.Tech.Shop.Services.UsersAccounts
 
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<SecuritySettings> SecuritySettings { get; set; }
         public DbSet<UserPreferences> Preferences { get; set; }
         public DbSet<AccountActivity> Activities { get; set; }
@@ -68,9 +67,6 @@ namespace Project.Tech.Shop.Services.UsersAccounts
                 entity.HasMany(u => u.Addresses)
                     .WithOne(a => a.User)
                     .HasForeignKey(a => a.UserId);
-                entity.HasMany(u => u.Roles)
-                    .WithMany(r => r.Users)
-                    .UsingEntity(j => j.ToTable("UserRoles"));
                 entity.HasOne(u => u.SecuritySettings)
                     .WithOne(s => s.User)
                     .HasForeignKey<SecuritySettings>(s => s.UserId);
@@ -85,13 +81,6 @@ namespace Project.Tech.Shop.Services.UsersAccounts
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.ToTable("Addresses");
-            });
-
-            modelBuilder.Entity<Role>(entity =>
-            {
-                entity.ToTable("Roles");
-                entity.HasMany(r => r.Users)
-                    .WithMany(u => u.Roles);
             });
 
             modelBuilder.Entity<SecuritySettings>(entity =>

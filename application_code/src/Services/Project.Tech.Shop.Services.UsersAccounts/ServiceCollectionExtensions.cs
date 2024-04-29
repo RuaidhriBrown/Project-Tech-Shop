@@ -4,7 +4,7 @@ using Project.Tech.Shop.Services.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
-using block.chain.services.Transactions.Repositories;
+using Project.Tech.Shop.Services.UsersAccounts.Repositories;
 
 namespace Project.Tech.Shop.Services.UsersAccounts
 {

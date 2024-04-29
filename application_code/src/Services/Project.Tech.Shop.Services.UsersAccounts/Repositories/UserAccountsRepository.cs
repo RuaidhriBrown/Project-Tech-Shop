@@ -1,11 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
-using Project.Tech.Shop.Services.UsersAccounts;
 using Project.Tech.Shop.Services.Common;
 using Project.Tech.Shop.Services.UsersAccounts.Entities;
 using Microsoft.Extensions.Logging;
+using System.Security.Cryptography.X509Certificates;
 
-namespace block.chain.services.Transactions.Repositories;
+namespace Project.Tech.Shop.Services.UsersAccounts.Repositories;
 
 /// <summary>
 /// Service class implementation of a <see cref="IUserAccountsRepository"/>
@@ -24,13 +24,12 @@ public class UserAccountsRepository : IUserAccountsRepository
     ///<inheritdoc />
     public IUnitOfWork UnitOfWork => _context;
 
-    public UserAccountsRepository(UserAccountsContext context) => _context = context  ?? throw new ArgumentNullException(nameof(context));
+    public UserAccountsRepository(UserAccountsContext context) => _context = context ?? throw new ArgumentNullException(nameof(context));
 
     ///<inheritdoc />
     public async Task<Result<User>> GetByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         var user = await _context.Users
-            .Include(u => u.Roles)
             .Include(u => u.Addresses)
             .Include(u => u.SecuritySettings)
             .Include(u => u.Preferences)
@@ -45,7 +44,6 @@ public class UserAccountsRepository : IUserAccountsRepository
     public async Task<Result<User>> GetByUsernameAsync(string username, CancellationToken cancellationToken)
     {
         var user = await _context.Users
-            .Include(u => u.Roles)
             .Include(u => u.Addresses)
             .Include(u => u.SecuritySettings)
             .Include(u => u.Preferences)
@@ -81,7 +79,17 @@ public class UserAccountsRepository : IUserAccountsRepository
     public async Task<Result<IReadOnlyCollection<User>>> GetAllAsync(CancellationToken cancellationToken)
     {
         var users = await _context.Users
-            .Include(u => u.Roles)
+            .Include(u => u.Addresses)
+            .ToListAsync(cancellationToken);
+
+        return Result.Success<IReadOnlyCollection<User>>(users);
+    }
+
+    ///<inheritdoc />
+    public async Task<Result<IReadOnlyCollection<User>>> GetAllUsersByRoleAsync(Role role, CancellationToken cancellationToken)
+    {
+        var users = await _context.Users
+            .Where(u => u.Role == role)
             .Include(u => u.Addresses)
             .ToListAsync(cancellationToken);
 
@@ -127,38 +135,6 @@ public class UserAccountsRepository : IUserAccountsRepository
             return UnitResult.Failure(UserDbErrorReason.NotFound);
         }
         user.Addresses.Add(address);
-        return await _context.SaveEntitiesAsync(cancellationToken);
-    }
-
-    ///<inheritdoc />
-    public async Task<UnitResult<UserDbErrorReason>> AssignRoleToUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
-    {
-        var user = await _context.Users
-            .Include(u => u.Roles)
-            .SingleOrDefaultAsync(u => u.UserId == userId, cancellationToken);
-
-        if (user == null) return UnitResult.Failure(UserDbErrorReason.NotFound);
-
-        var role = await _context.Roles.FindAsync(new object[] { roleId }, cancellationToken);
-        if (role == null) return UnitResult.Failure(UserDbErrorReason.NotFound);
-
-        user.Roles.Add(role);
-        return await _context.SaveEntitiesAsync(cancellationToken);
-    }
-
-    ///<inheritdoc />
-    public async Task<UnitResult<UserDbErrorReason>> RemoveRoleFromUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
-    {
-        var user = await _context.Users
-            .Include(u => u.Roles)
-            .SingleOrDefaultAsync(u => u.UserId == userId, cancellationToken);
-
-        if (user == null) return UnitResult.Failure(UserDbErrorReason.NotFound);
-
-        var role = user.Roles.FirstOrDefault(r => r.RoleId == roleId);
-        if (role == null) return UnitResult.Failure(UserDbErrorReason.NotFound);
-
-        user.Roles.Remove(role);
         return await _context.SaveEntitiesAsync(cancellationToken);
     }
 

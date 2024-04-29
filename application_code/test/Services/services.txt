@@ -1,0 +1,3 @@
+Project.Tech.Shop.Services.Common
+Project.Tech.Shop.Services.UserAccounts.Tests
+Project.Tech.Shop.Services.Products.Tests

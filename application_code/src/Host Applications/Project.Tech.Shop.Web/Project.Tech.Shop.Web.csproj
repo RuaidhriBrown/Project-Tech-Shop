@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Services\Project.Tech.Shop.Services.Common\Project.Tech.Shop.Services.Common.csproj" />
     <ProjectReference Include="..\..\Services\Project.Tech.Shop.Services.Products\Project.Tech.Shop.Services.Products.csproj" />
     <ProjectReference Include="..\..\Services\Project.Tech.Shop.Services.Transactions\Project.Tech.Shop.Services.Transactions.csproj" />

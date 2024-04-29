@@ -1,4 +1,5 @@
-﻿"ASUS ExpertBook B1 B1502CBA-EJ0436X Intel Core i5-1235U/8GB/512GB SSD/15.6""",New,Asus,ExpertBook,Intel Core i5,8,512,SSD,,15.6,No,1009,,https://www.gigasheet.com/sample-data/laptops-price-dataset
+﻿Name,Condition,Brand,Series,Processor Type,RAM ,Storage ,Storage Type,Graphics Card,Screen Size,Touch Screen,Price,,
+"ASUS ExpertBook B1 B1502CBA-EJ0436X Intel Core i5-1235U/8GB/512GB SSD/15.6""",New,Asus,ExpertBook,Intel Core i5,8,512,SSD,,15.6,No,1009,,https://www.gigasheet.com/sample-data/laptops-price-dataset
 "Alurin Go Start Intel Celeron N4020/8GB/256GB SSD/15.6""",New,Alurin,Go,Intel Celeron,8,256,SSD,,15.6,No,299,,
 "ASUS ExpertBook B1 B1502CBA-EJ0424X Intel Core i3-1215U/8GB/256GB SSD/15.6""",New,Asus,ExpertBook,Intel Core i3,8,256,SSD,,15.6,No,789,,
 "MSI Katana GF66 12UC-082XES Intel Core i7-12700H/16GB/1TB SSD/RTX3050/15.6""",New,MSI,Katana,Intel Core i7,16,1000,SSD,RTX 3050,15.6,No,1199,,

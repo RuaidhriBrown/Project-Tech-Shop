@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Tech.Shop.Services.UsersAccounts.Entities
 {
@@ -22,22 +15,36 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
 
         [Required]
         [MaxLength(256)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(256)]
+        public string Surname { get; set; }
+
+        [Required]
+        [MaxLength(256)]
         public string Email { get; set; }
 
         [Required]
         public string PasswordHash { get; set; }
 
-        public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+        [Required]
+        public Role Role { get; set; }
+
+        [Required]
         public AccountStatus Status { get; set; }
+
+        public virtual ICollection<Address> Addresses { get; set; }
+
         public SecuritySettings SecuritySettings { get; set; }
+
         public UserPreferences Preferences { get; set; }
+
         public virtual ICollection<AccountActivity> Activities { get; set; }
 
         public User()
         {
             Addresses = new HashSet<Address>();
-            Roles = new HashSet<Role>();
             Activities = new HashSet<AccountActivity>();
         }
     }
@@ -47,5 +54,12 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
         Active,
         Disabled,
         Unverified
+    }
+
+    public enum Role
+    {
+        Customer,
+        Support,
+        Admin
     }
 }

@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "Simple Game";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        #container {
+            width: 600px;
+            height: 600px;
+            position: relative;
+            background: yellow;
+        }
+
+        #animate {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+        }
+
+        .point {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            background-color: blue;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="slide-26">
+        <h2>Slide 26 - Simple Game</h2>
+        <div id="container">
+            <div id="animate" style="top: 0; left: 0;"></div>
+            <div id="points"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var animate = document.getElementById("animate");
+            var container = document.getElementById("container");
+            var pointsContainer = document.getElementById("points");
+            var score = 0;
+
+            // Function to generate a random point
+            function generateRandomPoint() {
+                var point = document.createElement("div");
+                point.className = "point";
+                point.style.left = Math.floor(600 * Math.random()) + "px";
+                point.style.top = Math.floor(600 * Math.random()) + "px";
+                pointsContainer.appendChild(point);
+            }
+
+            // Function to check collision between animate and points
+            function checkCollision() {
+                var animateRect = animate.getBoundingClientRect();
+                var points = document.getElementsByClassName("point");
+                for (var i = 0; i < points.length; i++) {
+                    var pointRect = points[i].getBoundingClientRect();
+                    if (animateRect.left < pointRect.right &&
+                        animateRect.right > pointRect.left &&
+                        animateRect.top < pointRect.bottom &&
+                        animateRect.bottom > pointRect.top) {
+                        // Collision detected
+                        score++;
+                        animate.style.width = (50 + score * 10) + "px";
+                        animate.style.height = (50 + score * 10) + "px";
+                        pointsContainer.removeChild(points[i]);
+                        generateRandomPoint();
+                    }
+                }
+            }
+
+            // Generate initial random points
+            for (var i = 0; i < 5; i++) {
+                generateRandomPoint();
+            }
+
+            // Event listener for keyboard input
+            document.addEventListener("keydown", function(e) {
+                var top = parseInt(animate.style.top) || 0;
+                var left = parseInt(animate.style.left) || 0;
+                var step = 10;
+
+                if (e.keyCode == 37 && left >= step) { // Left arrow
+                    left -= step;
+                } else if (e.keyCode == 38 && top >= step) { // Up arrow
+                    top -= step;
+                } else if (e.keyCode == 39 && left + animate.offsetWidth + step <= container.offsetWidth) { // Right arrow
+                    left += step;
+                } else if (e.keyCode == 40 && top + animate.offsetHeight + step <= container.offsetHeight) { // Down arrow
+                    top += step;
+                }
+
+                animate.style.top = top + "px";
+                animate.style.left = left + "px";
+
+                checkCollision();
+            });
+        });
+    </script>
+</body>
+</html>

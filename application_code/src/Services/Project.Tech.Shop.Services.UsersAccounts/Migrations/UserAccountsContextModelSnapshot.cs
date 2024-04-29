@@ -74,46 +74,30 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("County")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<bool>("IsBillingAddress")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsShippingAddress")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ZipCode")
+                    b.Property<string>("PostCode")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("character varying(10)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("AddressId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Addresses", "UserAccounts");
-                });
-
-            modelBuilder.Entity("Project.Tech.Shop.Services.UsersAccounts.Entities.Role", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roles", "UserAccounts");
                 });
 
             modelBuilder.Entity("Project.Tech.Shop.Services.UsersAccounts.Entities.SecuritySettings", b =>
@@ -149,12 +133,25 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -187,21 +184,6 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserPreferences", "UserAccounts");
-                });
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.Property<Guid>("RolesRoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UsersUserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("RolesRoleId", "UsersUserId");
-
-                    b.HasIndex("UsersUserId");
-
-                    b.ToTable("UserRoles", "UserAccounts");
                 });
 
             modelBuilder.Entity("Project.Tech.Shop.Services.UsersAccounts.Entities.AccountActivity", b =>
@@ -246,21 +228,6 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RoleUser", b =>
-                {
-                    b.HasOne("Project.Tech.Shop.Services.UsersAccounts.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project.Tech.Shop.Services.UsersAccounts.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Project.Tech.Shop.Services.UsersAccounts.Entities.User", b =>
