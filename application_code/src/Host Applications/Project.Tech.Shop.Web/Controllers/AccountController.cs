@@ -25,10 +25,6 @@ namespace Project.Tech.Shop.Web.Controllers
         // GET: Account/Login
         public ActionResult Login()
         {
-            string password = "testingPassword"; // Choose a strong password
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-            Console.WriteLine($"Hashed Password: {hashedPassword}");
-
             return View();
         }
 

@@ -21,6 +21,8 @@
             height: 50px;
             position: absolute;
             background-color: red;
+            top: 0; /* Initial top position */
+            left: 0; /* Initial left position */
         }
 
         .point {
@@ -36,37 +38,59 @@
     <div id="slide-26">
         <h2>Slide 26 - Simple Game</h2>
         <div id="container">
-            <div id="animate" style="top: 0; left: 0;"></div>
+            <div id="animate"></div>
             <div id="points"></div>
         </div>
     </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var animate = document.getElementById("animate");
             var container = document.getElementById("container");
             var pointsContainer = document.getElementById("points");
             var score = 0;
 
-            // Function to generate a random point
             function generateRandomPoint() {
                 var point = document.createElement("div");
                 point.className = "point";
-                point.style.left = Math.floor(600 * Math.random()) + "px";
-                point.style.top = Math.floor(600 * Math.random()) + "px";
+                point.style.left = Math.floor(Math.random() * (container.clientWidth - 10)) + "px";
+                point.style.top = Math.floor(Math.random() * (container.clientHeight - 10)) + "px";
                 pointsContainer.appendChild(point);
             }
 
-            // Function to check collision between animate and points
-            function checkCollision() {
+            for (var i = 0; i < 5; i++) {
+                generateRandomPoint();
+            }
+
+            document.addEventListener("keydown", function (e) {
+                var top = parseInt(animate.style.top, 10) || 0;
+                var left = parseInt(animate.style.left, 10) || 0;
+                var step = 10;
+
+                switch (e.keyCode) {
+                    case 37: // Left
+                        left = Math.max(0, left - step);
+                        break;
+                    case 38: // Up
+                        top = Math.max(0, top - step);
+                        break;
+                    case 39: // Right
+                        left = Math.min(container.clientWidth - animate.offsetWidth, left + step);
+                        break;
+                    case 40: // Down
+                        top = Math.min(container.clientHeight - animate.offsetHeight, top + step);
+                        break;
+                }
+
+                animate.style.top = top + "px";
+                animate.style.left = left + "px";
+
                 var animateRect = animate.getBoundingClientRect();
                 var points = document.getElementsByClassName("point");
-                for (var i = 0; i < points.length; i++) {
+                for (var i = points.length - 1; i >= 0; i--) {
                     var pointRect = points[i].getBoundingClientRect();
-                    if (animateRect.left < pointRect.right &&
-                        animateRect.right > pointRect.left &&
-                        animateRect.top < pointRect.bottom &&
-                        animateRect.bottom > pointRect.top) {
-                        // Collision detected
+                    if (animateRect.left < pointRect.right && animateRect.right > pointRect.left &&
+                        animateRect.top < pointRect.bottom && animateRect.bottom > pointRect.top) {
                         score++;
                         animate.style.width = (50 + score * 10) + "px";
                         animate.style.height = (50 + score * 10) + "px";
@@ -74,35 +98,9 @@
                         generateRandomPoint();
                     }
                 }
-            }
-
-            // Generate initial random points
-            for (var i = 0; i < 5; i++) {
-                generateRandomPoint();
-            }
-
-            // Event listener for keyboard input
-            document.addEventListener("keydown", function(e) {
-                var top = parseInt(animate.style.top) || 0;
-                var left = parseInt(animate.style.left) || 0;
-                var step = 10;
-
-                if (e.keyCode == 37 && left >= step) { // Left arrow
-                    left -= step;
-                } else if (e.keyCode == 38 && top >= step) { // Up arrow
-                    top -= step;
-                } else if (e.keyCode == 39 && left + animate.offsetWidth + step <= container.offsetWidth) { // Right arrow
-                    left += step;
-                } else if (e.keyCode == 40 && top + animate.offsetHeight + step <= container.offsetHeight) { // Down arrow
-                    top += step;
-                }
-
-                animate.style.top = top + "px";
-                animate.style.left = left + "px";
-
-                checkCollision();
             });
         });
     </script>
 </body>
 </html>
+

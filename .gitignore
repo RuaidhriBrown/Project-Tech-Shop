@@ -64,3 +64,5 @@ outDir/
 node_modules/
 
 /application_code/src/Host Applications/Project.Tech.Shop.Web/logs/*.txt
+
+/application_code/test/Host Applications/Project.Tech.Shop.Web.Test.Playwright/Reports/

@@ -23,12 +23,12 @@ namespace Project.Tech.Shop.Tests.Common
                 Name = fixture.Create<string>(),
                 Description = fixture.Create<string>(),
                 Price = fixture.Create<decimal>(),
-                Category = fixture.Create<Category>(),
+                Category = (int)fixture.Create<Category>(),
                 StockLevel = fixture.Create<int>(),
                 Brand = fixture.Create<string>()
             };
 
-            if (product.Category == Category.Laptop)
+            if (product.Category == (int)Category.Laptop)
             {
                 product.Series = fixture.Create<string>();
                 product.ProcessorType = fixture.Create<string>();
@@ -87,7 +87,7 @@ namespace Project.Tech.Shop.Tests.Common
                 Name = fixture.Create<string>(),
                 Description = fixture.Create<string>(),
                 Price = fixture.Create<decimal>(),
-                Category = fixture.Create<Category>(),
+                Category = (int)fixture.Create<Category>(),
                 StockLevel = fixture.Create<int>(),
                 Brand = fixture.Create<string>()
             };

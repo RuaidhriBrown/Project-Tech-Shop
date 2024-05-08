@@ -45,7 +45,7 @@ namespace Project.Tech.Shop.Web.Controllers
                 {
                     ProductId = product.ProductId,
                     Name = product.Name,
-                    Condition = product.Condition,
+                    Condition = (Condition)product.Condition,
                     Brand = product.Brand,
                     Series = product.Series,
                     ProcessorType = product.ProcessorType,
@@ -57,7 +57,7 @@ namespace Project.Tech.Shop.Web.Controllers
                     TouchScreen = product.TouchScreen,
                     Description = product.Description,
                     Price = product.Price,
-                    Category = product.Category,
+                    Category = (Category)product.Category,
                     StockLevel = product.StockLevel,
                     Image = product.Image
                 });
@@ -71,7 +71,7 @@ namespace Project.Tech.Shop.Web.Controllers
             if (!string.IsNullOrEmpty(filters.Brand))
                 query = query.Where(p => p.Brand == filters.Brand);
             if (filters.Category.HasValue)
-                query = query.Where(p => p.Category == filters.Category.Value);
+                query = query.Where(p => p.Category == (int)filters.Category.Value);
             if (filters.MinPrice.HasValue)
                 query = query.Where(p => p.Price >= filters.MinPrice.Value);
             if (filters.MaxPrice.HasValue)
@@ -94,8 +94,8 @@ namespace Project.Tech.Shop.Web.Controllers
                 {
                     ProductId = productResult.Value.ProductId,
                     Name = productResult.Value.Name,
-                    Condition = productResult.Value.Condition,
-                    Brand = productResult.Value.Brand,
+                    Condition = (Condition)productResult.Value.Condition,
+                    //Brand = productResult.Value.Brand,
                     Series = productResult.Value.Series,
                     ProcessorType = productResult.Value.ProcessorType,
                     RAM = productResult.Value.RAM,
@@ -106,7 +106,7 @@ namespace Project.Tech.Shop.Web.Controllers
                     TouchScreen = productResult.Value.TouchScreen,
                     Description = productResult.Value.Description,
                     Price = productResult.Value.Price,
-                    Category = productResult.Value.Category,
+                    Category = (Category)productResult.Value.Category,
                     StockLevel = productResult.Value.StockLevel,
                     Image = productResult.Value.Image
                 };

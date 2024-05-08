@@ -102,7 +102,7 @@ public class ProductsRepositoryTests
         var expectedCategory = products[0].Category;
 
         // Act
-        var result = await _sut.ListByCategoryAsync(expectedCategory, CancellationToken.None);
+        var result = await _sut.ListByCategoryAsync((Category)expectedCategory, CancellationToken.None);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

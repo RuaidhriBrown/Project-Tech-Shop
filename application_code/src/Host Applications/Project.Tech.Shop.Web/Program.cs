@@ -34,7 +34,7 @@ public class Program
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
-                //webBuilder.UseUrls("http://*:80");
+                
             });
 
     private static Microsoft.Extensions.Configuration.IConfiguration GetConfiguration()

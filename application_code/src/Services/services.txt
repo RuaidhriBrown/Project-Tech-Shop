@@ -2,4 +2,4 @@ Project.Tech.Shop.Services.Common
 Project.Tech.Shop.Services.Migrations.Startup
 Project.Tech.Shop.Services.UsersAccounts
 Project.Tech.Shop.Services.Products
-Project.Tech.Shop.Services.Transactions
+Project.Tech.Shop.Services.Contact

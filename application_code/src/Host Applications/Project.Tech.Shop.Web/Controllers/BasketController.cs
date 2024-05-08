@@ -89,7 +89,7 @@ namespace Project.Tech.Shop.Web.Controllers
                     Product = new ProductViewModel(){
                         ProductId = item.Product.ProductId,
                         Name = item.Product.Name,
-                        Condition = item.Product.Condition,
+                        Condition = (Condition)item.Product.Condition,
                         Brand = item.Product.Brand,
                         Series = item.Product.Series,
                         ProcessorType = item.Product.ProcessorType,
@@ -101,7 +101,7 @@ namespace Project.Tech.Shop.Web.Controllers
                         TouchScreen = item.Product.TouchScreen,
                         Description = item.Product.Description,
                         Price = item.Product.Price,
-                        Category = item.Product.Category,
+                        Category = (Category)item.Product.Category,
                         StockLevel = item.Product.StockLevel,
                         Image = item.Product.Image
                     },

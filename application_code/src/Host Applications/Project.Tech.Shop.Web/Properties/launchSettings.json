@@ -9,6 +9,16 @@
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7167;http://localhost:5109"
     },
+    "Project.Tech.Shop.Web Testing": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Testing",
+        "ASPNETCORE_URLS": "http://localhost:5001"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5001"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

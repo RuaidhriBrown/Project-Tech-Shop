@@ -44,11 +44,22 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=techshopdb
+      - POSTGRES_DB=test-tech-shop
       - POSTGRES_USER=techshopuser
       - POSTGRES_PASSWORD=techshoppassword
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+  # This auto updates the database to match the most upto data configurations 
+  migrations:
+    build:
+      context: ../application_code/src/
+      dockerfile: Services/Project.Tech.Shop.Web.Services.Migrations.Startup/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=test-tech-shop;Username=techshopuser;Password=techshoppassword
+    depends_on:
+      - postgres
 
   # project_tech_shop_web: find this on 8080
   project_tech_shop_web:
@@ -63,10 +74,11 @@ services:
       - prometheus
       - grafana
       - postgres
+      - migrations 
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:8080
-      - ConnectionStrings__DefaultConnection="Host=postgres;Port=5432;Database=techshopdb;Username=techshopuser;Password=techshoppassword;"
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=test-tech-shop;Username=techshopuser;Password=techshoppassword
       - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://zipkin:9411/api/v2/spans
       - SeqEndpoint=http://seq:80
       - Serilog__WriteTo__2__Name=Seq

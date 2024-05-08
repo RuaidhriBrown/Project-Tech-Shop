@@ -61,16 +61,29 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
-        app.UseHttpsRedirection();
+        if (env.IsEnvironment("Testing"))
+        {
+            bool disableHttpsRedirection = Configuration.GetValue<bool>("DisableHttpsRedirection");
+            if (!disableHttpsRedirection)
+            {
+                app.UseHttpsRedirection();
+            }
+        }
+        else
+        {
+            app.UseHttpsRedirection();
+            app.UseSerilogRequestLogging();
+        }
+
+        
         app.UseStaticFiles();
 
         app.UseRouting();
-        app.UseSerilogRequestLogging();
+        
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseServiceAppMetrics();
 
-        app.UseHttpsRedirection();
         app.UseStaticFiles();
 
         // Prometheus metrics endpoint

@@ -23,9 +23,8 @@ namespace Project.Tech.Shop.Services.Products.Enitites
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        public Condition Condition { get; set; }
+        public int Condition { get; set; }
 
-        [Required]
         public string Brand { get; set; } = string.Empty;
 
         public string? Series { get; set; }
@@ -52,7 +51,7 @@ namespace Project.Tech.Shop.Services.Products.Enitites
         public decimal Price { get; set; }
 
         [Required]
-        public Category Category { get; set; }
+        public int Category { get; set; }
 
         [Required]
         public int StockLevel { get; set; }

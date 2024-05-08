@@ -13,7 +13,6 @@ WORKDIR /src
 COPY ["Host Applications/Project.Tech.Shop.Web/Project.Tech.Shop.Web.csproj", "Host Applications/Project.Tech.Shop.Web/"]
 COPY ["Services/Project.Tech.Shop.Services.Common/Project.Tech.Shop.Services.Common.csproj", "Services/Project.Tech.Shop.Services.Common/"]
 COPY ["Services/Project.Tech.Shop.Services.Products/Project.Tech.Shop.Services.Products.csproj", "Services/Project.Tech.Shop.Services.Products/"]
-COPY ["Services/Project.Tech.Shop.Services.Transactions/Project.Tech.Shop.Services.Transactions.csproj", "Services/Project.Tech.Shop.Services.Transactions/"]
 COPY ["Services/Project.Tech.Shop.Services.UsersAccounts/Project.Tech.Shop.Services.UsersAccounts.csproj", "Services/Project.Tech.Shop.Services.UsersAccounts/"]
 
 RUN dotnet restore "Host Applications/Project.Tech.Shop.Web/Project.Tech.Shop.Web.csproj"

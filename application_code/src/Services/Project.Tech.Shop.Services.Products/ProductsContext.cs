@@ -56,8 +56,10 @@ namespace Project.Tech.Shop.Services.Products
                 entity.ToTable("Products");
                 entity.HasKey(p => p.ProductId); // Defines the primary key
                 entity.Property(p => p.Name).HasMaxLength(256).IsRequired();
+                entity.Property(p => p.Brand).HasMaxLength(256);
                 entity.Property(p => p.Description).HasMaxLength(256);
                 entity.Property(p => p.Price).IsRequired().HasColumnType("decimal(18, 2)"); // Ensuring decimal precision
+                entity.Property(p => p.Condition);
                 entity.Property(p => p.Category).IsRequired();
                 entity.Property(p => p.StockLevel).IsRequired();
                 entity.Property(p => p.Image).HasColumnType("text");
@@ -90,7 +92,7 @@ namespace Project.Tech.Shop.Services.Products
                 entity.ToTable("Baskets");
                 entity.HasKey(b => b.BasketId);
                 entity.Property(b => b.CustomerId).IsRequired();
-                entity.Property(b => b.Status).IsRequired();  // Ensures each customer has only one basket
+                entity.Property(b => b.Status).IsRequired();  // Ensures each customer has only one active basket
 
             });
 

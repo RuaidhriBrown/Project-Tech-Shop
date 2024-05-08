@@ -77,8 +77,10 @@ public class ProductsRepository : IProductsRepository
     ///<inheritdoc />
     public async Task<Result<IReadOnlyCollection<Product>>> ListByCategoryAsync(Category category, CancellationToken cancellationToken)
     {
+        int categoryInt = (int)category;
+
         return await _context.Products
-            .Where(p => p.Category == category)
+            .Where(p => p.Category == categoryInt)
             .ToListAsync(cancellationToken);
     }
 
