@@ -10,6 +10,8 @@
 
         public string? LastName { get; set; }
 
-        // Add more properties as necessary, e.g., FirstName, LastName, etc.
+        public string? Role { get; set; }
+
+        
     }
 }

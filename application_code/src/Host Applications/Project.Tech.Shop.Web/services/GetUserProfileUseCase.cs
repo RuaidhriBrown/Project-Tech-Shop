@@ -2,6 +2,7 @@
 using Project.Tech.Shop.Web.Models;
 using Microsoft.Extensions.Logging;
 using Project.Tech.Shop.Services.UsersAccounts.Repositories;
+using Project.Tech.Shop.Services.UsersAccounts.Entities;
 
 namespace Project.Tech.Shop.Web.services
 {
@@ -34,9 +35,22 @@ namespace Project.Tech.Shop.Web.services
                 Username = userDetails.Username,
                 Email = userDetails.Email,
                 FirstName = userDetails.FirstName,
-                LastName = userDetails.Surname
+                LastName = userDetails.Surname,
                 // Map other required fields
             };
+
+            if(userDetails.Role == Role.Admin)
+            {
+                viewModel.Role = "Admin";
+            }
+            else if (userDetails.Role == Role.Customer)
+            {
+                viewModel.Role = "Customer";
+            }
+            else if (userDetails.Role == Role.Support)
+            {
+                viewModel.Role = "Support";
+            }
 
             return Result.Success(viewModel);
         }

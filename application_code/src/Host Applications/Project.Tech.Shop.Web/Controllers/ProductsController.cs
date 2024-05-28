@@ -31,7 +31,7 @@ namespace Project.Tech.Shop.Web.Controllers
             };
             ViewBag.Filters = filters;
 
-            var productsQuery = _productsRepository.GetAllQueryable(); // Assuming this method exists
+            var productsQuery = _productsRepository.GetAllQueryable();
 
             // Apply filters
             productsQuery = ApplyFilters(productsQuery, filters);

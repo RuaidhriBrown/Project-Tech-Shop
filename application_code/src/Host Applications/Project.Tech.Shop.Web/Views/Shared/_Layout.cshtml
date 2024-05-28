@@ -64,6 +64,21 @@
                                     <span class="basket-count badge badge-pill badge-warning">0</span>
                                 </a>
                             </li>
+
+                            <!-- Admin Dropdown (Visible only to Admin role) -->
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarAdminDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarAdminDropdownMenuLink">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Products">Admin Products</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Users">Admin Users</a>
+                                    </div>
+                                </li>
+                            }
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" id="navbarAccountDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     @User.Identity.Name!
@@ -117,6 +132,6 @@
         }
 
         fetchBasketCount();
-        setInterval(fetchBasketCount, 30000); // Refresh the basket count every 30 seconds
+        setInterval(fetchBasketCount, 1000); // Refresh the basket count every 30 seconds
     });
 </script>

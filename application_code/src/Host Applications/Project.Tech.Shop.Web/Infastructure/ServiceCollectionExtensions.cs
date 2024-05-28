@@ -3,6 +3,7 @@ using Project.Tech.Shop.Services.UsersAccounts;
 using Ardalis.GuardClauses;
 using Project.Tech.Shop.Web.services;
 using Project.Tech.Shop.Services.Products;
+using Project.Tech.Shop.Web.Infastructure.Filter;
 
 namespace block.chain.webhost.Infastructure
 {
@@ -46,6 +47,7 @@ namespace block.chain.webhost.Infastructure
             // UseCases
             services.AddScoped<GetUserProfileUseCase>();
             services.AddScoped<AccountUseCase>();
+            services.AddScoped<AdminAuthorizationFilter>();
 
             return services;
         }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Project.Tech.Shop.Web.Models;
 using System.Security.Claims;
 using Project.Tech.Shop.Web.services;
+using Project.Tech.Shop.Services.UsersAccounts.Entities;
+using System.Data;
 
 namespace Project.Tech.Shop.Web.Controllers
 {
@@ -40,9 +42,14 @@ namespace Project.Tech.Shop.Web.Controllers
 
                 if (isAuthenticated.IsSuccess)
                 {
+                    var userDetailsResults = await _getUserProfileUseCase.GetUserProfileByUsernameAsync(model.Username, cancellationToken);
+
+
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, model.Username)
+                        new Claim(ClaimTypes.Name, userDetailsResults.Value.Username),
+                        new Claim(ClaimTypes.Role, userDetailsResults.Value.Role),
+                        new Claim(ClaimTypes.GivenName, userDetailsResults.Value.FirstName + userDetailsResults.Value.LastName),
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");

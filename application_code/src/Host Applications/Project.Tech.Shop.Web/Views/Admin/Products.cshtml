@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Admin Products Page";
+}
+
+<h2>Products</h2>
+<a class="btn btn-primary" asp-action="AddProduct">Add New Product</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock Level</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.StockLevel</td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="EditProduct" asp-route-id="@product.ProductId">Edit</a>
+                    <form asp-action="DeleteProduct" asp-route-id="@product.ProductId" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

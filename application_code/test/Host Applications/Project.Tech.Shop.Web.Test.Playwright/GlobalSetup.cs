@@ -17,7 +17,7 @@ namespace Project.Tech.Shop.Web.Test.Playwright
         public async Task StartWebApplication()
         {
             // First, attempt to stop any previously running instances
-            //await EnsureProcessStopped();
+            await EnsureProcessStopped();
 
             _webServerProcess = new Process
             {
