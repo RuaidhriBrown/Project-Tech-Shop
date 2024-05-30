@@ -161,5 +161,61 @@ namespace Project.Tech.Shop.Web.Controllers
                 return View(model);
             }
         }
+
+        // GET: Account/ChangePassword
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        // POST: Account/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model, CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.NewPassword != model.ConfirmPassword)
+            {
+
+                this.AddErrorMessage("", "New Password and Confirm Password do not match.");
+                return View(model);
+            }
+
+            var username = User.Identity.Name;
+            var userResult = await _getUserProfileUseCase.GetUserProfileByUsernameAsync(username, cancellationToken);
+
+            if (userResult.IsFailure)
+            {
+                this.AddErrorMessage("Could not find user.");
+                return View(model);
+            }
+
+            var user = userResult.Value;
+
+            var isAuthenticated = await _accountUseCase.AuthenticateUserAsync(user.Username, model.CurrentPassword, cancellationToken);
+            if (isAuthenticated.IsFailure || !isAuthenticated.Value)
+            {
+                this.AddErrorMessage("Problem doing authentication or Current Password is incorrect.");
+                return View(model);
+            }
+
+            user.passwordReplacement = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+
+            var updateResult = await _getUserProfileUseCase.UpdateUserProfileAsync(user, cancellationToken);
+
+            if (updateResult.IsSuccess)
+            {
+                this.AddConfirmationMessage("Password changed successfully.");
+                return RedirectToAction("Profile");
+            }
+
+            this.AddErrorMessage("Failed to change password.");
+            return View(model);
+        }
     }
 }
