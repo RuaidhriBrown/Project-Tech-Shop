@@ -8,9 +8,11 @@ using System.Data;
 using Microsoft.AspNetCore.Authorization;
 using Project.Tech.Shop.Services.Products.Repositories;
 using Project.Tech.Shop.Services.UsersAccounts.Repositories;
-using Project.Tech.Shop.Web.Infastructure.Filter;
 using Project.Tech.Shop.Services.Products.Enitites;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Project.Tech.Shop.Web.Infrastructure.Filter;
+using Project.Tech.Shop.Web.Infrastructure;
+using CSharpFunctionalExtensions;
 
 namespace Project.Tech.Shop.Web.Controllers
 {
@@ -37,9 +39,206 @@ namespace Project.Tech.Shop.Web.Controllers
             return View();
         }
 
-        public IActionResult Users()
+        public async Task<IActionResult> Users(CancellationToken cancellationToken)
         {
-            return View();
+            var usersResult = await _usersRepository.GetAllAsync(cancellationToken);
+            if (usersResult.IsSuccess)
+            {
+                var model = usersResult.Value.Select(u => new UserProfileViewModel
+                {
+                    UserId = u.UserId,
+                    Username = u.Username,
+                    FirstName = u.FirstName,
+                    LastName = u.Surname,
+                    Email = u.Email,
+                    Role = u.Role.ToString(),
+                    TwoFactorEnabled = u.SecuritySettings?.TwoFactorEnabled ?? false,
+                    Addresses = u.Addresses.Select(a => new AddressViewModel
+                    {
+                        AddressId = a.AddressId,
+                        AddressLine = a.AddressLine,
+                        City = a.City,
+                        County = a.County,
+                        PostCode = a.PostCode,
+                        Country = a.Country,
+                        IsShippingAddress = a.IsShippingAddress,
+                        IsBillingAddress = a.IsBillingAddress
+                    }).ToList(),
+                    SecuritySettings = new SecuritySettingsViewModel
+                    {
+                        TwoFactorEnabled = u.SecuritySettings?.TwoFactorEnabled ?? false,
+                        SecurityQuestion = u.SecuritySettings?.SecurityQuestion,
+                        SecurityAnswerHash = u.SecuritySettings?.SecurityAnswerHash
+                    },
+                    Preferences = new UserPreferencesViewModel
+                    {
+                        ReceiveNewsletter = u.Preferences?.ReceiveNewsletter ?? false,
+                        PreferredPaymentMethod = u.Preferences?.PreferredPaymentMethod
+                    },
+                    Activities = u.Activities.Select(ac => new AccountActivityViewModel
+                    {
+                        ActivityId = ac.ActivityId,
+                        Timestamp = ac.Timestamp,
+                        ActivityType = ac.ActivityType,
+                        Description = ac.Description
+                    }).ToList(),
+                    RowVersion = u.RowVersion
+                }).ToList();
+
+                return View(model);
+            }
+
+            this.AddErrorMessage("Could not load users!");
+            ModelState.AddModelError("", "Failed to load users.");
+            return View(new List<UserProfileViewModel>());
+        }
+
+        public IActionResult AddUser()
+        {
+            return View(new UserProfileViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddUser(UserProfileViewModel model, CancellationToken cancellationToken)
+        {
+            ModelState.Remove("Preferences");
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = new User
+            {
+                Username = model.Username,
+                FirstName = model.FirstName,
+                Surname = model.LastName,
+                Email = model.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.passwordReplacement), // Hash the password
+                Role = Enum.Parse<Role>(model.Role),
+                Status = AccountStatus.Active // Default status
+            };
+
+            var result = await _usersRepository.AddUserAsync(user, cancellationToken);
+            if (result.IsSuccess)
+            {
+                this.AddConfirmationMessage("User added successfully!");
+                return RedirectToAction("Users");
+            }
+
+            this.AddErrorMessage("Could not add user!");
+            ModelState.AddModelError("", result.Error.ToString());
+            return View(model);
+        }
+
+        public async Task<IActionResult> EditUser(Guid id, CancellationToken cancellationToken)
+        {
+            ModelState.Remove("Preferences");
+
+            var userResult = await _usersRepository.GetByIdAsync(id, cancellationToken);
+            if (userResult.IsSuccess)
+            {
+                var user = userResult.Value;
+                var model = new UserProfileViewModel
+                {
+                    UserId = user.UserId,
+                    Username = user.Username,
+                    FirstName = user.FirstName,
+                    LastName = user.Surname,
+                    Email = user.Email,
+                    Role = user.Role.ToString(),
+                    TwoFactorEnabled = user.SecuritySettings?.TwoFactorEnabled ?? false,
+                    passwordReplacement = user.PasswordHash,
+                    Addresses = user.Addresses.Select(a => new AddressViewModel
+                    {
+                        AddressId = a.AddressId,
+                        AddressLine = a.AddressLine,
+                        City = a.City,
+                        County = a.County,
+                        PostCode = a.PostCode,
+                        Country = a.Country,
+                        IsShippingAddress = a.IsShippingAddress,
+                        IsBillingAddress = a.IsBillingAddress
+                    }).ToList(),
+                    SecuritySettings = new SecuritySettingsViewModel
+                    {
+                        TwoFactorEnabled = user.SecuritySettings?.TwoFactorEnabled ?? false,
+                        SecurityQuestion = user.SecuritySettings?.SecurityQuestion,
+                        SecurityAnswerHash = user.SecuritySettings?.SecurityAnswerHash
+                    },
+                    Preferences = new UserPreferencesViewModel
+                    {
+                        ReceiveNewsletter = user.Preferences?.ReceiveNewsletter ?? false,
+                        PreferredPaymentMethod = user.Preferences?.PreferredPaymentMethod
+                    },
+                    Activities = user.Activities.Select(ac => new AccountActivityViewModel
+                    {
+                        ActivityId = ac.ActivityId,
+                        Timestamp = ac.Timestamp,
+                        ActivityType = ac.ActivityType,
+                        Description = ac.Description
+                    }).ToList(),
+                    RowVersion = user.RowVersion
+                };
+
+                return View(model);
+            }
+
+            this.AddErrorMessage("Could not load user to edit!");
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(UserProfileViewModel model, CancellationToken cancellationToken)
+        {
+            ModelState.Remove("Preferences");
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userResult = await _usersRepository.GetByIdAsync(model.UserId, cancellationToken);
+            if (!userResult.IsSuccess)
+            {
+                return NotFound();
+            }
+
+            var user = userResult.Value;
+            user.Username = model.Username;
+            user.FirstName = model.FirstName;
+            user.Surname = model.LastName;
+            user.Email = model.Email;
+            user.Role = Enum.Parse<Role>(model.Role);
+
+            var updateResult = await _usersRepository.UpdateUserAsync(user, cancellationToken);
+            if (updateResult.IsSuccess)
+            {
+                this.AddConfirmationMessage("User updated!.");
+                return RedirectToAction("Users");
+            }
+
+            this.AddErrorMessage("Update failed. Please try again.");
+            ModelState.AddModelError("", "Update failed. Please try again.");
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _usersRepository.RemoveUserAsync(id, cancellationToken);
+            if (result.IsSuccess)
+            {
+                this.AddConfirmationMessage("User deleted!.");
+                return RedirectToAction(nameof(Users));
+            }
+
+            this.AddErrorMessage("Failed to delete user.");
+            ModelState.AddModelError("", "Failed to delete user.");
+            return RedirectToAction(nameof(Users));
         }
 
 
@@ -74,6 +273,7 @@ namespace Project.Tech.Shop.Web.Controllers
                 return View(model);
             }
 
+            this.AddErrorMessage("Failed to load products.");
             ModelState.AddModelError("", "Failed to load products.");
             return View(new List<ProductViewModel>()); // Ensure to pass an empty list of the expected type to the view in case of failure
         }
@@ -120,6 +320,7 @@ namespace Project.Tech.Shop.Web.Controllers
                 return RedirectToAction("Products");
             }
 
+            this.AddErrorMessage(result.Error.ToString());
             ModelState.AddModelError("", result.Error.ToString());
 
             return View(model);
@@ -155,6 +356,7 @@ namespace Project.Tech.Shop.Web.Controllers
                 return View(model);
             }
 
+            this.AddErrorMessage("Product not found!");
             return NotFound();
         }
 
@@ -194,6 +396,7 @@ namespace Project.Tech.Shop.Web.Controllers
                 return RedirectToAction("Products");
             }
 
+            this.AddErrorMessage("Update failed. Please try again.");
             ModelState.AddModelError("", "Update failed. Please try again.");
             return View(model);
         }
@@ -205,9 +408,11 @@ namespace Project.Tech.Shop.Web.Controllers
             var result = await _productsRepository.DeleteAsync(id, cancellationToken);
             if (result.IsSuccess)
             {
+                this.AddConfirmationMessage("Deleted Product!");
                 return RedirectToAction(nameof(Products));
             }
 
+            this.AddErrorMessage("Failed to delete product.");
             ModelState.AddModelError("", "Failed to delete product.");
             return RedirectToAction(nameof(Products));
         }

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "UserAccounts"."__EFMigrationsHistory" (
 
 -- Create extensions if they do not exist
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- User Roles table
 CREATE TABLE IF NOT EXISTS "UserAccounts"."Roles" (
@@ -31,6 +32,7 @@ CREATE TABLE IF NOT EXISTS "UserAccounts"."Users" (
     "PasswordHash" text NOT NULL,
     "Role" integer NOT NULL,
     "Status" integer NOT NULL,
+    "RowVersion" bytea NOT NULL DEFAULT gen_random_bytes(8), -- Generates random bytea
     CONSTRAINT "PK_Users" PRIMARY KEY ("UserId"),
     CONSTRAINT "UQ_Users_Username" UNIQUE ("Username"),
     CONSTRAINT "UQ_Users_Email" UNIQUE ("Email")
@@ -91,7 +93,8 @@ INSERT INTO "UserAccounts"."__EFMigrationsHistory" ("MigrationId", "ProductVersi
 ('20240419124048_MakePasswordHashString', '7.0.18'),
 ('20240426152345_AddUsersFirstNameLastName', '7.0.18'),
 ('20240428115039_simplifiedUserRole', '7.0.18'),
-('20240428120010_slightchanges', '7.0.18')
+('20240428120010_slightchanges', '7.0.18'),
+('20240529120010_addRowVersionToUsers', '7.0.18')
 ON CONFLICT ("MigrationId") DO NOTHING;
 
 -- Commit all changes

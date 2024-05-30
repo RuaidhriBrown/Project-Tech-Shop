@@ -12,8 +12,18 @@ namespace Project.Tech.Shop.Web.Test.Playwright.Tests
     [Parallelizable(ParallelScope.Fixtures)]
     public class LoginTests : PlaywrightTestsBase
     {
+        private readonly string _username;
+        private const string Password = "Project1";
+
         public LoginTests(string browserType) : base(browserType)
         {
+            _username = browserType switch
+            {
+                "chromium" => "chromiumUser",
+                "firefox" => "firefoxUser",
+                "webkit" => "webkitUser",
+                _ => throw new ArgumentException("Invalid browser type")
+            };
         }
 
         [Test]
@@ -54,8 +64,8 @@ namespace Project.Tech.Shop.Web.Test.Playwright.Tests
             Assert.IsTrue(await loginPage.IsLoginButtonVisible(), "Login button should be visible on the login page.");
 
             // Perform login
-            await loginPage.LoginAsync("testuser", "testingPassword");
-            
+            await loginPage.LoginAsync(_username, Password);
+
             // Find login evidence
             var usernameDisplay = await _page.Locator("#navbarAccountDropdownMenuLink").TextContentAsync();
             bool isLoginSuccessful = !string.IsNullOrEmpty(usernameDisplay) && usernameDisplay != "Login";
@@ -84,6 +94,30 @@ namespace Project.Tech.Shop.Web.Test.Playwright.Tests
             // Check for error message visibility
             var errorVisible = await _page.Locator(".text-danger:visible").IsVisibleAsync();
             Assert.IsTrue(errorVisible, "Error message should be visible after failed login.");
+
+            test.Log(Status.Info, "Test completed successfully.");
+        }
+
+        [Test]
+        public async Task LoginPageShouldPreventSQLInjection()
+        {
+            LoginPage loginPage = new LoginPage(_page, test);
+
+            // Navigate to login
+            await loginPage.NavigateToLoginByLoginLinkAsync();
+
+            // Ensure necessary elements are visible
+            Assert.IsTrue(await loginPage.IsUsernameFieldVisible(), "Username input field should be visible.");
+            Assert.IsTrue(await loginPage.IsPasswordFieldVisible(), "Password input field should be visible.");
+            Assert.IsTrue(await loginPage.IsLoginButtonVisible(), "Login button should be visible.");
+
+            // Perform login attempt with SQL injection
+            string sqlInjectionString = "' OR '1'='1";
+            await loginPage.LoginAsync(sqlInjectionString, sqlInjectionString);
+
+            // Check for error message or failed login indication
+            var errorVisible = await _page.Locator(".validation-summary-errors:visible").IsVisibleAsync();
+            Assert.IsTrue(errorVisible, "Error message should be visible after SQL injection attempt.");
 
             test.Log(Status.Info, "Test completed successfully.");
         }

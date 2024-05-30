@@ -14,7 +14,8 @@ namespace Project.Tech.Shop.Web.Test.Playwright
         protected IBrowserContext _context;
         protected IPage _page;
 
-        protected string baseUrl = "http://localhost:5001/";
+        //protected string baseUrl = "http://localhost:5001/";
+        protected string baseUrl = "http://localhost:5045/";
         private BrowserTypeLaunchOptions SetBrowserTypeLaunchOptions = new BrowserTypeLaunchOptions
         {
             Headless = false

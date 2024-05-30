@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Project.Tech.Shop.Web.Infastructure.Filter
+namespace Project.Tech.Shop.Web.Infrastructure.Filter
 {
     public class AdminAuthorizationFilter : IAuthorizationFilter
     {
