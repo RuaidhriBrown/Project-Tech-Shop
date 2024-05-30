@@ -39,6 +39,7 @@ namespace Project.Tech.Shop.Web.services
                 LastName = userDetails.Surname,
                 Role = userDetails.Role.ToString(),
                 TwoFactorEnabled = userDetails.SecuritySettings?.TwoFactorEnabled ?? false,
+                passwordReplacement = userDetails.PasswordHash,
                 Addresses = userDetails.Addresses.Select(a => new AddressViewModel
                 {
                     AddressId = a.AddressId,
@@ -102,6 +103,7 @@ namespace Project.Tech.Shop.Web.services
             user.FirstName = model.FirstName;
             user.Surname = model.LastName;
             user.Email = model.Email;
+            user.PasswordHash = model.passwordReplacement;
 
             // Update addresses
             foreach (var addressModel in model.Addresses)

@@ -131,7 +131,7 @@
                 success: function (response) {
                     if (response.success) {
                         alert(response.message);
-                        // Optionally update basket UI here
+                        fetchBasketCount();
                     } else {
                         alert(response.message);
                     }
