@@ -1,0 +1,36 @@
+﻿@using System.Web;
+@using Project.Tech.Shop.Web.Infrastructure
+
+@if (!ViewData.ModelState.IsValid || TempData.ContainsKey(ControllerExtensions.ErrorMessageKey))
+{
+    <div class="error-summary" aria-labelledby="error-summary-title" role="alert" data-module="error-summary">
+        <h2 class="error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="error-summary__body">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="All" class="error-summary__body"></div>
+            }
+            @if (TempData.ContainsKey(ControllerExtensions.ErrorMessageKey))
+            {
+                if (TempData.ContainsKey(ControllerExtensions.ErrorFieldNameKey))
+                {
+                    <ul class="error-list">
+                        <li>
+                            <a href="#@TempData[ControllerExtensions.ErrorFieldNameKey]">@TempData[ControllerExtensions.ErrorMessageKey]</a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <p class="error-message">
+                        <span class="visually-hidden">Error:</span> @Html.Raw(HttpUtility.HtmlEncode(TempData[ControllerExtensions.ErrorMessageKey] ?? string.Empty).Replace("\n", "<br/>"))
+                    </p>
+                }
+            }
+        </div>
+    </div>
+}
+
+

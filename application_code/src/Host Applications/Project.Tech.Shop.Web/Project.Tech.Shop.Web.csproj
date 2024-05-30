@@ -34,4 +34,8 @@
     <ProjectReference Include="..\..\Services\Project.Tech.Shop.Services.UsersAccounts\Project.Tech.Shop.Services.UsersAccounts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

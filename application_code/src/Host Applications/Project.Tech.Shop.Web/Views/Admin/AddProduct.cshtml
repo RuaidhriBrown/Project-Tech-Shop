@@ -6,6 +6,9 @@
 
 <h2>Add Product</h2>
 
+<partial name="Partials/_ConfirmationMessageDisplay" />
+<partial name="Partials/_PageErrors" />
+
 <form asp-action="AddProduct" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name"></label>

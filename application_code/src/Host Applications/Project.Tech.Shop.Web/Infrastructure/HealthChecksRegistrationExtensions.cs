@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace Project.Tech.Shop.Web.Infastructure
+namespace Project.Tech.Shop.Web.Infrastructure
 {
     /// <summary>
     /// Provides extension methods for registering the required services within a given <see cref="IServiceCollection"/>.

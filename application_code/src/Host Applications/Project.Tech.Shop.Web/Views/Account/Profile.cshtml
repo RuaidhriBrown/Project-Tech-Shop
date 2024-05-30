@@ -1,21 +1,181 @@
-﻿@model Project.Tech.Shop.Web.Models.UserProfileViewModel
+﻿@model UserProfileViewModel
 
 @{
-    ViewData["Title"] = "Your Profile";
+    ViewData["Title"] = "Profile Page";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <dl class="row">
-            <dt class="col-sm-4">Username:</dt>
-            <dd class="col-sm-8">@Model.Username</dd>
-
-            <dt class="col-sm-4">Email:</dt>
-            <dd class="col-sm-8">@Model.Email</dd>
-
-            <!-- Add more fields as needed -->
-        </dl>
+<form asp-action="Profile" method="post" id="profileForm">
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Username" />
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" disabled />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" disabled />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" disabled />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Role"></label>
+        <input asp-for="Role" class="form-control" disabled />
+    </div>
+
+    <!-- Security Settings Section -->
+    <input type="hidden" asp-for="SecuritySettings.TwoFactorEnabled" />
+    <input type="hidden" asp-for="SecuritySettings.SecurityQuestion" />
+    @* <div class="form-group">
+        <label asp-for="SecuritySettings.TwoFactorEnabled"></label>
+        <input asp-for="SecuritySettings.TwoFactorEnabled" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="SecuritySettings.SecurityQuestion"></label>
+        <input asp-for="SecuritySettings.SecurityQuestion" class="form-control" disabled />
+    </div> *@
+
+    <!-- Preferences Section -->
+    <input type="hidden" asp-for="Preferences.ReceiveNewsletter" />
+    <input type="hidden" asp-for="Preferences.PreferredPaymentMethod" />
+    @* <div class="form-group">
+        <label asp-for="Preferences.ReceiveNewsletter"></label>
+        <input asp-for="Preferences.ReceiveNewsletter" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="Preferences.PreferredPaymentMethod"></label>
+        <input asp-for="Preferences.PreferredPaymentMethod" class="form-control" disabled />
+    </div> *@
+
+    <!-- Address Edit Section -->
+    <div id="addressesContainer">
+        @foreach (var address in Model.Addresses)
+        {
+            <h3>Address</h3>
+            <input type="hidden" asp-for="@address.AddressId" />
+            <div class="form-group">
+                <label asp-for="@address.AddressLine">Address Line</label>
+                <input asp-for="@address.AddressLine" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@address.City">City</label>
+                <input asp-for="@address.City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@address.County">County</label>
+                <input asp-for="@address.County" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@address.PostCode">Post Code</label>
+                <input asp-for="@address.PostCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@address.Country">Country</label>
+                <input asp-for="@address.Country" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="@address.IsShippingAddress" />
+                    <label class="form-check-label" asp-for="@address.IsShippingAddress">Shipping Address</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="@address.IsBillingAddress" />
+                    <label class="form-check-label" asp-for="@address.IsBillingAddress">Billing Address</label>
+                </div>
+            </div>
+        }
+    </div>
+    <button type="button" onclick="addNewAddress()" class="btn btn-info">Add Address</button>
+
+    <button type="button" id="editBtn" class="btn btn-primary">Edit</button>
+    <button type="submit" id="saveBtn" class="btn btn-success" style="display:none;">Save</button>
+    <button type="button" id="cancelBtn" class="btn btn-secondary" style="display:none;">Cancel</button>
+</form>
+
+@section Scripts {
+    <script>
+        function addNewAddress() {
+            var container = $('#addressesContainer');
+            var index = container.children('.address-entry').length; // Ensure index follows the count of existing address entries
+            var newAddrHtml = `
+                                <div class="address-entry">
+                                    <h3>New Address</h3>
+                                    <input type="hidden" name="Addresses[${index}].AddressId" value="" />
+                                    <div class="form-group">
+                                        <label>Address Line</label>
+                                        <input name="Addresses[${index}].AddressLine" class="form-control" value="" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input name="Addresses[${index}].City" class="form-control" value="" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>County</label>
+                                        <input name="Addresses[${index}].County" class="form-control" value="" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Post Code</label>
+                                        <input name="Addresses[${index}].PostCode" class="form-control" value="" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input name="Addresses[${index}].Country" class="form-control" value="" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="Addresses[${index}].IsShippingAddress" disabled />
+                                            <label class="form-check-label">Shipping Address</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="Addresses[${index}].IsBillingAddress" disabled />
+                                            <label class="form-check-label">Billing Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+            container.append(newAddrHtml);
+        }
+
+        $(document).ready(function () {
+            $('#editBtn').click(function () {
+                toggleEditMode(true);
+            });
+
+            $('#cancelBtn').click(function () {
+                toggleEditMode(false);
+                // Optionally reset the form to initial values
+                $('#profileForm').trigger('reset');
+            });
+
+            function toggleEditMode(editMode) {
+                $('input, textarea, select').each(function () {
+                    $(this).prop('disabled', !editMode);
+                });
+                $('#editBtn').toggle(!editMode);
+                $('#saveBtn').toggle(editMode);
+                $('#cancelBtn').toggle(editMode);
+                // Ensure the "Add Address" button is only enabled in edit mode
+                $('#addNewAddressBtn').prop('disabled', !editMode);
+            }
+
+            // Ensure form submit only happens if save is clicked
+            $('#saveBtn').click(function () {
+                $('#profileForm').submit();
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,7 +1,7 @@
 ﻿using App.Metrics.Formatters.Prometheus;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Project.Tech.Shop.Web.Infastructure
+namespace Project.Tech.Shop.Web.Infrastructure
 {
     public static class AppMetricsExtensions
     {

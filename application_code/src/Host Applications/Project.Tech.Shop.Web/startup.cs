@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Prometheus;
-using block.chain.webhost.Infastructure;
-using Project.Tech.Shop.Web.Infastructure;
 using Serilog;
-using Project.Tech.Shop.Web.Infastructure.Options;
+using Project.Tech.Shop.Web.Infrastructure;
+using Project.Tech.Shop.Web.Infrastructure.Options;
 
 public class Startup
 {

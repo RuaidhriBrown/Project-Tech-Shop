@@ -3,9 +3,9 @@ using Project.Tech.Shop.Services.UsersAccounts;
 using Ardalis.GuardClauses;
 using Project.Tech.Shop.Web.services;
 using Project.Tech.Shop.Services.Products;
-using Project.Tech.Shop.Web.Infastructure.Filter;
+using Project.Tech.Shop.Web.Infrastructure.Filter;
 
-namespace block.chain.webhost.Infastructure
+namespace Project.Tech.Shop.Web.Infrastructure
 {
     public static class ServiceCollectionExtensions
     {

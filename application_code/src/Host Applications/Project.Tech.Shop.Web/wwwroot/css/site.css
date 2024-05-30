@@ -450,3 +450,123 @@ button, input[type="submit"] {
         flex: 3;
     }
 }
+
+
+/* General styles for form elements */
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[readonly], input[disabled] {
+    background-color: #f0f0f0; /* Light gray for better contrast in light mode */
+    color: #999999; /* Gray text color */
+    cursor: not-allowed; /* Indicate non-editable state */
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212; /* Dark gray background for body */
+        color: #e0e0e0; /* Light gray text color for readability */
+    }
+
+    input[type="text"], input[type="number"], select, button[type="submit"] {
+        border: 1px solid #333;
+        background-color: #333;
+        color: #fff;
+    }
+
+    input[readonly], input[disabled] {
+        background-color: #2a2a2a; /* Dark gray for non-editable fields in dark mode */
+        color: #666666; /* Light gray text color */
+        cursor: not-allowed; /* Indicate non-editable state */
+    }
+
+    .navbar {
+        background-color: #0A0F24; /* Dark blue shade for navbar */
+        color: #ffffff;
+    }
+
+    .navbar-light .navbar-nav .nav-link,
+    .navbar-light .navbar-brand {
+        color: #ffffff; /* White text for better readability in dark mode */
+    }
+
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-brand:hover {
+            color: #637B99; /* Lighter blue for hover effects, adjust as necessary */
+        }
+
+    .footer {
+        background-color: #0A0F24; /* Dark blue shade for footer to match the navbar */
+        color: #ffffff;
+    }
+
+        .footer a {
+            color: #637B99; /* Consistent lighter blue for links */
+        }
+
+            .footer a:hover {
+                color: #ffffff; /* White for hovered links */
+            }
+
+    button, .btn {
+        background-color: #1B3B6F; /* Deeper blue for buttons */
+        color: #ffffff;
+    }
+
+        button:hover, .btn:hover {
+            background-color: #2A5298; /* Lighter blue for button hover effects */
+        }
+}
+
+/* Styles for error and confirmation messages */
+
+.error-summary {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.error-summary__title {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.error-summary__body {
+    margin: 0;
+}
+
+.error-message {
+    color: #721c24;
+}
+
+.notification-banner--success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.notification-banner__title {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.notification-banner__content {
+    margin: 0;
+}

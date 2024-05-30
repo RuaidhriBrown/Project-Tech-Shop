@@ -60,6 +60,8 @@ namespace Project.Tech.Shop.Services.UsersAccounts
                     .HasColumnType("uuid")
                     .HasDefaultValueSql("uuid_generate_v4()")
                     .IsRequired();
+                entity.Property(u => u.RowVersion)
+                    .IsRowVersion();
                 entity.HasIndex(u => u.Username)
                     .IsUnique();
                 entity.HasIndex(u => u.Email)

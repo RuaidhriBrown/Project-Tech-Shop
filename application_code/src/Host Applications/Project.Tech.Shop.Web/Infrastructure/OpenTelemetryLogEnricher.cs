@@ -4,7 +4,7 @@ using Serilog.Events;
 using Serilog;
 using System.Diagnostics;
 
-namespace Project.Tech.Shop.Web.Infastructure
+namespace Project.Tech.Shop.Web.Infrastructure
 {
     public class OpenTelemetryLogEnricher : ILogEventEnricher
     {

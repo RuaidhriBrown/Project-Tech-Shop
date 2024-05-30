@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using OpenTelemetry.Resources;
 
-namespace Project.Tech.Shop.Web.Infastructure;
+namespace Project.Tech.Shop.Web.Infrastructure;
 
 public static class TelemetryExtensions
 {

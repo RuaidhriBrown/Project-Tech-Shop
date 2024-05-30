@@ -1,4 +1,4 @@
-﻿namespace Project.Tech.Shop.Web.Infastructure.Options
+﻿namespace Project.Tech.Shop.Web.Infrastructure.Options
 {
     public class SystemConfiguration
     {

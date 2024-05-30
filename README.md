@@ -8,7 +8,7 @@ A shopping website focused on technology products where users can browse items, 
 ## Technologies Used
 
 - **HTML/CSS:** To craft a visually appealing and intuitive user interface.
-- **AngularJS/React:** Chosen for the frontend framework to handle state and user interactions dynamically.
+- **JS/Razor:** Chosen for the frontend framework to handle state and user interactions dynamically.
 - **ASP.NET MVC:** Utilized for the backend to implement the MVC architecture for clean code organization.
 - **Entity Framework:** For database operations, using its ORM capabilities to simplify data access.
 - **PostgreSQL:** As a robust database system compatible with Entity Framework.

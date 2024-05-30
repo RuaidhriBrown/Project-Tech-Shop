@@ -5,6 +5,9 @@ namespace Project.Tech.Shop.Services.UsersAccounts.Entities
 {
     public class User
     {
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }

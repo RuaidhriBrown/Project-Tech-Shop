@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Project.Tech.Shop.Web.services;
 using Project.Tech.Shop.Services.UsersAccounts.Entities;
 using System.Data;
+using Project.Tech.Shop.Web.Infrastructure;
 
 namespace Project.Tech.Shop.Web.Controllers
 {
@@ -87,18 +88,43 @@ namespace Project.Tech.Shop.Web.Controllers
             }
 
             var username = User.Identity.Name;
-            // Assuming a method to get user details by username
             var userDetailsResults = await _getUserProfileUseCase.GetUserProfileByUsernameAsync(username, cancellationToken);
 
             if (userDetailsResults.IsFailure)
             {
-                // Handle the case where user details are not found
+                this.AddErrorMessage("Could not retrieve user profile details.");
                 return View("Error");
             }
 
             return View(userDetailsResults.Value);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(UserProfileViewModel model, CancellationToken cancellationToken)
+        {
+            // Remove unwanted ModelState entries
+            //ModelState.Remove("SecuritySettings");
+            //ModelState.Remove("Preferences");
+            //ModelState.Remove("IsShippingAddress");
+            //ModelState.Remove("IsBillingAddress");
+
+            //if (!ModelState.IsValid)
+            //{
+            //    this.AddErrorMessage("Please correct the errors in the form.");
+            //    return View(model);
+            //}
+
+            var updateResult = await _getUserProfileUseCase.UpdateUserProfileAsync(model, cancellationToken);
+            if (updateResult.IsSuccess)
+            {
+                this.AddConfirmationMessage("Profile updated successfully.");
+                return RedirectToAction("Profile");
+            }
+
+            this.AddErrorMessage(updateResult.Error);
+            return View(model);
+        }
 
         // GET: Account/Register
         public ActionResult Register()
