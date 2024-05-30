@@ -13,6 +13,9 @@ A shopping website focused on technology products where users can browse items, 
 - **Entity Framework:** For database operations, using its ORM capabilities to simplify data access.
 - **PostgreSQL:** As a robust database system compatible with Entity Framework.
 - **JSON:** For efficient data exchange between the frontend and backend.
+- **OpenTelemetry:** Promethus metrics, Seq, zipkin and health checks.
+
+## Tech hoping to add:
 - **RabbitMQ:** To handle asynchronous tasks and improve overall performance by decoupling heavy operations.
 
 ## Features
